@@ -1,0 +1,8 @@
+- name: Add google chrome yum repo
+  copy:
+    src: files/google-chrome.repo
+    dest: /etc/yum.repos.d/
+  sudo: yes
+
+- name: Install gogole chrome
+  yum: name= google-chrome-stable

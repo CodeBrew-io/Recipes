@@ -1,0 +1,6 @@
+- name: Create users
+  user: name={{ user.name }} password={{ user.pass }}
+  sudo: yes
+
+- name: Add to wheel group so they can sudo
+  command: usermod {{ user.name }} -a -G wheel

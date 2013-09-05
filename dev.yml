@@ -1,0 +1,6 @@
+---
+- name: Epic team install
+  hosts:
+  user:
+  roles:
+    - frontend
