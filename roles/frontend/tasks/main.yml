@@ -1,8 +1,53 @@
-- name: Add google chrome yum repo
-  copy:
-    src: files/google-chrome.repo
-    dest: /etc/yum.repos.d/
+- name: install node deps
+  yum: name=gcc-c++
   sudo: yes
 
-- name: Install gogole chrome
-  yum: name= google-chrome-stable
+- name: create download folder
+  file: 
+    path: /home/Downloads
+    state: directory
+
+- name: download Nodejs
+  get_url: 
+    url: http://nodejs.org/dist/v0.10.15/node-v{{ nodejs_version }}.tar.gz
+    dest: /home/Downloads/node-v{{ nodejs_version }}.tar.gz
+
+- name: untar node
+  shell: >
+    tar -C /home/Downloads
+    -xzf /home/Downloads/node-v{{ nodejs_version }}.tar.gz
+    creates=/home/Downloads/node-v{{ nodejs_version }}
+
+- name: config node
+  shell: >
+    cd /home/Downloads/node-v{{ nodejs_version }} && ./configure
+    creates=/usr/local/bin/node
+
+- name: build node
+  shell: >
+    cd /home/Downloads/node-v{{ nodejs_version }} && make -j{{ nodejs_make_jobs }}
+    creates=/usr/local/bin/node
+
+- name: install node
+  shell: >
+    cd /home/Downloads/node-v{{ nodejs_version }} && make install
+    creates=/usr/local/bin/node
+  sudo: yes
+
+- name: install yeoman
+  shell: >
+    /usr/local/bin/npm install -g yo
+    creates=/usr/local/bin/yo
+  sudo: yes
+
+- name: install grunt
+  shell: >
+    /usr/local/bin/npm install -g grunt
+    creates=/usr/local/bin/grunt
+  sudo: yes
+
+- name: install bower
+  shell: >
+    /usr/local/bin/npm install -g bower
+    creates=/usr/local/bin/bower
+  sudo: yes

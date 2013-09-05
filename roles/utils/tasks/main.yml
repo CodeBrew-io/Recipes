@@ -1,0 +1,30 @@
+- name: Add google chrome yum repo
+  copy:
+    src: google-chrome.repo
+    dest: /etc/yum.repos.d/
+  sudo: yes
+
+- name: Install utils
+  yum: name=$item
+  with_items:
+    - google-chrome-stable
+    - git-core
+    - tig
+  sudo: yes
+
+- name: create download folder
+  file: 
+    path: /home/Downloads
+    state: directory
+  sudo: yes
+
+- name: download Sublime Text 3
+  get_url: 
+    url: $sublime_url
+    dest: /home/Downloads/sublime3.tar.bz2
+
+- name: untar Sublime Text 3
+  shell: >
+    tar -C /opt
+    -xjf /home/Downloads/sublime3.tar.bz2
+  sudo: yes
