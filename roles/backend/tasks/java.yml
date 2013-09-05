@@ -1,0 +1,17 @@
+- name: create download folder
+  file: 
+    path: /home/Downloads
+    state: directory
+
+- name: Get java oracle
+  command: >
+    wget --no-cookies --header "$oracle_header" 
+    $oracle_java_url 
+    -O /home/Downloads/$oracle_java_filename
+    creates=/home/Downloads/$oracle_java_filename
+
+- name: Install java
+  command: >
+    rpm -i /home/Downloads/$oracle_java_filename
+    creates=/usr/bin/java
+  sudo: yes
