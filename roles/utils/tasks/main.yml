@@ -27,4 +27,16 @@
   shell: >
     tar -C /opt
     -xjf /home/Downloads/sublime3.tar.bz2
+    creates=/opt/sublime_text
   sudo: yes
+
+- name: rename st3 to st
+  shell: >
+    mv /opt/sublime_text_3 /opt/sublime_text
+    creates=/opt/sublime_text
+  sudo: yes
+
+- name: install shortcut
+  copy:
+    src: sublime_text.desktop
+    dest: /usr/share/applications
