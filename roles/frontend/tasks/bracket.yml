@@ -1,0 +1,10 @@
+- name: create download folder
+  file: 
+    path: /home/Downloads
+    state: directory
+
+- name: download brackets
+  command: >
+    wget $brackets_url
+    -O /home/Downloads/brackets{{ brackets_build }}.rpm
+    creates=/home/Downloads/brackets{{ brackets_build }}.rpm

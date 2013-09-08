@@ -1,0 +1,13 @@
+- name: install pip
+  command: easy_install pip
+  sudo: yes
+
+- name: Install pythons to build ansible
+  yum: name=$item
+  with_items:
+    - python-devel
+  sudo: yes
+
+- name: install ansible
+  command: pip install ansible
+  sudo: yes

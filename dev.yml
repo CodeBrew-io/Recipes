@@ -1,6 +1,8 @@
 ---
 - name: Epic team install
-  hosts:
+  hosts: devs
   user:
   roles:
-    - frontend
+    # - backend
+    - utils
+    # - frontend
