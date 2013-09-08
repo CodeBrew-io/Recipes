@@ -16,9 +16,6 @@
     creates=/opt/sublime_text_3
   sudo: yes
 
-- name: Create /opt/sublime_text symlink
-  file: dest=/opt/sublime_text src=/opt/sublime_text_3 state=link
-
 - name: install shortcut
   copy:
     src: sublime_text.desktop

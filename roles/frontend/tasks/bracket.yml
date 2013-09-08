@@ -1,10 +1,33 @@
 - name: create download folder
   file: 
-    path: /home/Downloads
+    path: /tmp/brackets
     state: directory
 
 - name: download brackets
   command: >
     wget $brackets_url
-    -O /home/Downloads/brackets{{ brackets_build }}.rpm
-    creates=/home/Downloads/brackets{{ brackets_build }}.rpm
+    -O /tmp/brackets/brackets{{ brackets_build }}.deb
+    creates=/tmp/brackets/brackets{{ brackets_build }}.deb
+
+- name: unpack brackets
+  shell: >
+    cd /tmp/brackets/ && ar p brackets{{ brackets_build }}.deb data.tar.gz | tar zx
+    creates=/tmp/brackets/opt
+
+- name: install brackets
+  command: cp -r /tmp/brackets/opt/brackets /opt
+  sudo: yes
+
+- name: install wrap script
+  copy:
+    src: wraper.sh
+    dest: /opt/brackets/wraper.sh
+  sudo: yes
+
+- name: set permission
+  file: path=/opt/brackets/wraper.sh mode=755
+
+- name: install shortcut
+  copy:
+    src: brackets.desktop
+    dest: /usr/share/applications
