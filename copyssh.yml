@@ -1,0 +1,24 @@
+---
+- name: Copy public and private key
+  hosts: devs
+  user: $user
+  vars:
+    user: YOUR_USER
+  tasks:
+    - name: create ssh directory
+      file: path=/home/{{ user }}/.ssh/ state=directory
+
+    - name: copy ssh private and public key
+      copy: src=/home/{{ user }}/.ssh/{{ item }} dest=/home/{{ user }}/.ssh/{{ item }}
+      with_items:
+        - id_rsa
+        - id_rsa.pub
+
+    - name: set permissions for ssh
+      command: chmod 700 /home/{{ user }}/.ssh/
+
+    - name: set permissions for private key
+      command: chmod 600 /home/{{ user }}/.ssh/id_rsa
+
+    - name: set permissions for public key
+      command: chmod 644 /home/{{ user }}/.ssh/id_rsa.pub

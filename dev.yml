@@ -3,6 +3,6 @@
   hosts: devs
   user:
   roles:
-    # - backend
+    - backend
     - utils
-    # - frontend
+    - frontend

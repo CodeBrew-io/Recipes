@@ -11,3 +11,7 @@
 - name: install ansible
   command: pip install ansible
   sudo: yes
+
+- name: install passlib
+  command: pip install passlib
+  sudo: yes
