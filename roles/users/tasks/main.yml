@@ -1,51 +1,10 @@
-- name: Set zsh as the default bash
-  copy: 
-    src: useradd
-    dest: /etc/default/
-
 - name: Create users
   user: name={{ user.name }} password={{ user.pass }}
   sudo: yes
 
-- name: Create ssh folder
-  file: 
-    state: directory 
-    mode: 0700
-    dest: /home/{{ user.name }}/.ssh
-  sudo: yes
-
-- name: Set owner
-  shell: >
-    chown {{ user.name }}:{{ user.name }}
-    /home/{{ user.name }}/.ssh
-
-- name: Add your public key to authorized keys so you can login with a private key
-  copy: src={{ user.name }}/authorized_keys dest=/home/{{ user.name }}/.ssh
-
 - name: Add to wheel group so they can sudo
   command: usermod {{ user.name }} -a -G wheel
 
-- name: Install zshrc
-  yum: name=zsh
-
-- name: Install oh-my-zsh
-  git: 
-    repo: https://github.com/robbyrussell/oh-my-zsh.git
-    dest: /home/{{ user.name }}/.oh-my-zsh
-
-- name: Set owner
-  shell: >
-    chown {{ user.name }}:{{ user.name }}
-    /home/{{ user.name }}/.oh-my-zsh
-
-- name: Set template
-  copy: src=zshrc dest=/home/{{ user.name }}/.zshrc
-
-- name: Set git email
-  command: git config --global user.email "$user.email"
-
-- name: Set git fullname
-  command: git config --global user.name "$user.fullname"
-
-- name: Set sublime text for git commit
-  command: git config --global core.editor "/opt/sublime_text/sublime_text -n -w"
+- include: "git.yml"
+- include: "oh-my-zsh.yml"
+- include: "ssh.yml"

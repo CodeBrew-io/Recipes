@@ -1,0 +1,20 @@
+- name: Set zsh as the default bash
+  copy: 
+    src: useradd
+    dest: /etc/default/
+
+- name: Install zshrc
+  yum: name=zsh
+
+- name: Install oh-my-zsh
+  git: 
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: /home/{{ user.name }}/.oh-my-zsh
+
+- name: Set owner
+  shell: >
+    chown {{ user.name }}:{{ user.name }}
+    /home/{{ user.name }}/.oh-my-zsh
+
+- name: Set template
+  copy: src=zshrc dest=/home/{{ user.name }}/.zshrc
