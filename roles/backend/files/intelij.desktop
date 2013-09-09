@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=IntelliJ IDEA 12 Community Edition
+Comment=The super scala ide!
+Exec=/opt/idea-IC-129.713/bin/idea.sh 
+Icon=/opt/idea-IC-129.713/bin/idea.png
+Terminal=false
+Type=Application
+Categories=Development;TextEditor;

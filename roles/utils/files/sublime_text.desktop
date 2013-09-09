@@ -5,5 +5,4 @@ Exec=/opt/sublime_text_3/sublime_text
 Icon=/opt/sublime_text_3/Icon/128x128/sublime-text.png
 Terminal=false
 Type=Application
-Encoding=UTF-8
 Categories=Utility;TextEditor;

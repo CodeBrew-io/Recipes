@@ -5,5 +5,4 @@ Exec=/opt/brackets/wraper.sh
 Icon=/opt/brackets/appshell256.png
 Terminal=false
 Type=Application
-Encoding=UTF-8
 Categories=Utility;TextEditor;

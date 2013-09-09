@@ -1,0 +1,63 @@
+- name: create download folder
+  file: 
+    path: /home/Downloads
+    state: directory
+
+- name: create intellij plugins folder
+  file: 
+    path: /home/Downloads/intellij_plugins
+    state: directory
+
+- name: download intellij comunity
+  get_url: 
+    url: $intellij_url
+    dest: /home/Downloads/intelij.tar.gz
+
+- name: untar intellij
+  shell: >
+    tar -C /opt
+    -xzf /home/Downloads/intelij.tar.gz
+    creates=/opt/idea-IC-129.713
+  sudo: yes
+
+- name: install shortcut
+  copy:
+    src: intelij.desktop
+    dest: /usr/share/applications
+
+- name: download sbt plugin
+  command: >
+    wget $intellij_sbt_url
+    -O /home/Downloads/intellij_plugins/sbt.zip
+    creates=/home/Downloads/intellij_plugins/sbt.zip
+
+- name: unzip sbt plugin
+  command: >
+    unzip /home/Downloads/intellij_plugins/sbt.zip
+    -d /home/Downloads/intellij_plugins
+    creates=/home/Downloads/intellij_plugins/SBT
+
+- name: install SBT plugin
+  command: >
+    cp -R /home/Downloads/intellij_plugins/SBT /opt/idea-IC-129.713/plugins
+    creates=/opt/idea-IC-129.713/plugins/SBT
+  sudo: yes
+
+- name: download scala plugin
+  command: >
+    wget $intellij_scala_url
+    -O /home/Downloads/intellij_plugins/scala.zip
+    creates=/home/Downloads/intellij_plugins/scala.zip
+
+- name: unzip scala plugin
+  command: >
+    unzip /home/Downloads/intellij_plugins/scala.zip
+    -d /home/Downloads/intellij_plugins
+    creates=/home/Downloads/intellij_plugins/Scala
+
+- name: install scala plugin
+  command: >
+    cp -R /home/Downloads/intellij_plugins/Scala /opt/idea-IC-129.713/plugins
+    creates=/opt/idea-IC-129.713/plugins/Scala
+  sudo: yes
+

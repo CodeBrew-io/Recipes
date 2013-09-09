@@ -1,3 +1,7 @@
 oracle_java_filename: jdk-7u10-linux-x64.rpm
 oracle_java_url: http://download.oracle.com/otn-pub/java/jdk/7u10-b18/$oracle_java_filename
 oracle_header: "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com"
+
+intellij_url: http://download-ln.jetbrains.com/idea/ideaIC-12.1.4.tar.gz
+intellij_sbt_url: http://plugins.jetbrains.com/plugin/download?pr=&updateId=11926
+intellij_scala_url: http://plugins.jetbrains.com/plugin/download?pr=&updateId=14078
