@@ -1,8 +1,15 @@
 ---
 - name: Epic team install
   hosts: devs
-  user:
+  user: ercomb
   roles:
-    - backend
+    # - backend
     - utils
-    - frontend
+    # - frontend
+  vars:
+    users:
+      - gui
+      - jedesah
+      - ercomb
+      - pat
+      - shmed

@@ -35,19 +35,36 @@
   sudo: yes
 
 - name: install yeoman
-  shell: >
+  command: >
     /usr/local/bin/npm install -g yo
     creates=/usr/local/bin/yo
   sudo: yes
 
 - name: install grunt
-  shell: >
+  command: >
     /usr/local/bin/npm install -g grunt
     creates=/usr/local/bin/grunt
   sudo: yes
 
 - name: install bower
-  shell: >
+  command: >
     /usr/local/bin/npm install -g bower
     creates=/usr/local/bin/bower
+  sudo: yes
+
+- name: install typescript
+  command: >
+    /usr/local/bin/npm install -g typescript
+    creates=/usr/local/bin/tsc
+  sudo: yes
+
+- name: Install Typescript-tools
+  git: 
+    repo: https://github.com/clausreinke/typescript-tools.git
+    dest: /home/Downloads/typescript-tools
+
+- name: install typescript-tools
+  shell: >
+    cd /home/Downloads/typescript-tools && /usr/local/bin/npm install -g
+    creates=/usr/local/bin/tss
   sudo: yes

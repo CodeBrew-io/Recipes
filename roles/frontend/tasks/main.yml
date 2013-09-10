@@ -1,2 +1,2 @@
-# - include: node.yml
+- include: node.yml
 - include: bracket.yml

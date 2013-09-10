@@ -20,3 +20,27 @@
   copy:
     src: sublime_text.desktop
     dest: /usr/share/applications
+
+- name: Install typescript plugin
+  git: 
+    repo: https://github.com/Railk/T3S.git
+    dest: /home/{{ item }}/.config/sublime-text-3/Packages/T3S
+  with_items: $users
+
+- name: Set owner for typescript plugin
+  shell: >
+    chown -R {{ item }}:{{ item }}
+    /home/{{ item }}/.config/sublime-text-3/Packages/T3S
+  with_items: $users
+
+- name: Install typescript plugin synthax
+  git: 
+    repo: https://github.com/raph-amiard/sublime-typescript.git
+    dest: /home/{{ item }}/.config/sublime-text-3/Packages/sublime-typescript
+  with_items: $users
+
+- name: Set owner for typescript plugin synthax
+  shell: >
+    chown -R {{ item }}:{{ item }}
+    /home/{{ item }}/.config/sublime-text-3/Packages/sublime-typescript
+  with_items: $users
