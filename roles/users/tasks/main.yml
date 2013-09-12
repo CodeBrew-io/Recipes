@@ -5,6 +5,8 @@
 - name: Add to wheel group so they can sudo
   command: usermod {{ user.name }} -a -G wheel
 
-- include: "git.yml"
+- name: Setup git config
+  template: src=.gitconfig.j2 dest=/home/{{ user.name }}/.gitconfig owner={{ user.name }} group={{ user.name }} mode=0664
+
 - include: "oh-my-zsh.yml"
 - include: "ssh.yml"

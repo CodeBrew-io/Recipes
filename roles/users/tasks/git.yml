@@ -1,8 +1,0 @@
-- name: Set git email
-  command: git config --global user.email "$user.email"
-
-- name: Set git fullname
-  command: git config --global user.name "$user.fullname"
-
-- name: Set sublime text for git commit
-  command: git config --global core.editor "/opt/sublime_text/sublime_text -w"
