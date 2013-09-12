@@ -5,3 +5,6 @@ oracle_header: "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com"
 intellij_url: http://download-ln.jetbrains.com/idea/ideaIC-12.1.4.tar.gz
 intellij_sbt_url: http://plugins.jetbrains.com/plugin/download?pr=&updateId=11926
 intellij_scala_url: http://plugins.jetbrains.com/plugin/download?pr=&updateId=14078
+
+sbt_version: 0.13.0
+sbt_url: http://repo.scala-sbt.org/scalasbt/sbt-native-packages/org/scala-sbt/sbt/{{ sbt_version }}/sbt.rpm

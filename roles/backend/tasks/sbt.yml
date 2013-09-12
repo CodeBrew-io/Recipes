@@ -1,0 +1,15 @@
+- name: create download folder
+  file: 
+    path: /home/Downloads
+    state: directory
+
+- name: download sbt package
+  get_url: 
+    url: $sbt_url
+    dest: /home/Downloads/sbt-{{ sbt_version }}.rpm
+
+- name: install sbt
+  command: >
+  	rpm -i /home/Downloads/sbt-{{ sbt_version }}.rpm
+  	creates=/usr/bin/sbt
+  sudo: yes
