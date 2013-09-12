@@ -1,0 +1,19 @@
+- name: Install rpm fusion free
+  command: rpm -ivh $fusion_free_url
+  sudo: yes
+
+- name: Install rpm fusion nonfree
+  command: rpm -ivh $fusion_nonfree_url
+  sudo: yes
+
+- name: Install nvidia prop. drivers
+  yum: name=akmod-nvidia-304xx
+  sudo: yes
+
+- name: Update yum
+  yum: name=* state=latest
+  sudo: yes
+
+- name: Reboot
+  command: reboot
+  sudo: yes
