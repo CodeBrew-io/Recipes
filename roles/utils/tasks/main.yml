@@ -1,17 +1,17 @@
-# - name: Add google chrome yum repo
-#   copy:
-#     src: google-chrome.repo
-#     dest: /etc/yum.repos.d/
-#   sudo: yes
+- name: Add google chrome yum repo
+  copy:
+    src: google-chrome.repo
+    dest: /etc/yum.repos.d/
+  sudo: yes
 
-# - name: Install utils
-#   yum: name=$item
-#   with_items:
-#     - google-chrome-stable
-#     - git-core
-#     - tig
-#   sudo: yes
+- name: Install utils
+  yum: name=$item
+  with_items:
+    - google-chrome-stable
+    - git-core
+    - tig
+  sudo: yes
 
-# - include: sublime.yml
+- include: sublime.yml
 
 - include: ansible.yml
