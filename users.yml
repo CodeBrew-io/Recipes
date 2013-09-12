@@ -1,20 +1,20 @@
 ---
 - name: Epic team user setup
   hosts: devs
-  user:
+  user: gui
   roles:
     - users
-  vars_prompt:
-    - name: "pass"
-      prompt: "Password"
-      private: yes
-      encrypt: "sha512_crypt"
-      confirm: yes
-      salt_size: 7
-      salt:
+  # vars_prompt:
+  #   - name: "pass"
+  #     prompt: "Password"
+  #     private: yes
+  #     encrypt: "sha512_crypt"
+  #     confirm: yes
+  #     salt_size: 7
+  #     salt: "dgfjadsf89tu3q845335efghdsf"
   vars:
     user:
-      name:
-      fullname:
-      email:
-      pass:
+      name: gui
+      fullname: "Guillaume Massé"
+      email: "masgui@gmail.com"
+      # pass: $pass
