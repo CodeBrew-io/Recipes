@@ -10,6 +10,32 @@
 
 - name: install sbt
   command: >
-  	rpm -i /home/Downloads/sbt-{{ sbt_version }}.rpm
-  	creates=/usr/bin/sbt
+    rpm -i /home/Downloads/sbt-{{ sbt_version }}.rpm
+    creates=/usr/bin/sbt
   sudo: yes
+
+- name: Setup sbt for remote debuging
+  copy: >
+    src=sbt-debug
+    dest=/usr/bin/sbt-debug
+    mode=0755
+
+- name: Create sbt directory structure 1
+  file: path=/home/{{ item }}/.sbt/ state=directory
+  with_items: $users
+
+- name: Create sbt directory structure 1
+  file: path=/home/{{ item }}/.sbt/plugins state=directory
+  with_items: $users
+
+- name: Add sbt default plugins
+  copy: >
+    src=build.sbt
+    dest=/home/{{ item }}/.sbt/plugins/build.sbt
+  with_items: $users
+
+- name: Set owner for sbt config
+  shell: >
+    chown -R {{ item }}:{{ item }}
+    /home/{{ item }}/.sbt
+  with_items: $users
