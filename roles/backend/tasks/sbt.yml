@@ -25,13 +25,17 @@
   with_items: $users
 
 - name: Create sbt directory structure 1
-  file: path=/home/{{ item }}/.sbt/plugins state=directory
+  file: path=/home/{{ item }}/.sbt/0.13 state=directory
+  with_items: $users
+
+- name: Create sbt directory structure 3
+  file: path=/home/{{ item }}/.sbt/0.13/plugins state=directory
   with_items: $users
 
 - name: Add sbt default plugins
   copy: >
     src=build.sbt
-    dest=/home/{{ item }}/.sbt/plugins/build.sbt
+    dest=/home/{{ item }}/.sbt/0.13/plugins/build.sbt
   with_items: $users
 
 - name: Set owner for sbt config
