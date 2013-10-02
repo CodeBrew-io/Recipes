@@ -19,6 +19,7 @@
     src=sbt-debug
     dest=/usr/bin/sbt-debug
     mode=0755
+  sudo: yes
 
 - name: Create sbt directory structure 1
   file: path=/home/{{ item }}/.sbt/ state=directory

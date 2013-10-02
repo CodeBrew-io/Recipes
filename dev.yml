@@ -8,8 +8,4 @@
     - frontend
   vars:
     users:
-      - gui
-      - jedesah
       - ercomb
-      - pat
-      - shmed

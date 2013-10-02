@@ -26,8 +26,10 @@
 
 - name: set permission
   file: path=/opt/brackets/wraper.sh mode=755
+  sudo: yes
 
 - name: install shortcut
   copy:
     src: brackets.desktop
     dest: /usr/share/applications
+  sudo: yes

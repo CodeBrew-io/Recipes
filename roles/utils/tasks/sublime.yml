@@ -20,6 +20,7 @@
   copy:
     src: sublime_text.desktop
     dest: /usr/share/applications
+  sudo: yes
 
 - name: Install typescript plugin
   git: 
