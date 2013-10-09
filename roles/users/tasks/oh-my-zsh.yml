@@ -13,8 +13,15 @@
 
 - name: Set owner
   shell: >
-    chown {{ user.name }}:{{ user.name }}
+    chown -R {{ user.name }}:{{ user.name }}
     /home/{{ user.name }}/.oh-my-zsh
+  sudo: yes
 
 - name: Set template
   copy: src=zshrc dest=/home/{{ user.name }}/.zshrc
+
+- name: Set owner
+  shell: >
+    chown {{ user.name }}:{{ user.name }}
+    /home/{{ user.name }}/.zshrc
+  sudo: yes
