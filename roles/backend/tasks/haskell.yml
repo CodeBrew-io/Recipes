@@ -1,0 +1,18 @@
+# - name: install haskell platform
+#   yum: name=$item
+#   with_items:
+#     - ghc
+#     - ghc-prof 
+#     - cabal-install
+#     # - ghc-doc 
+#   sudo: yes
+
+# - name: update cabal
+#   command: su -c "cabal update" {{ item }}
+#   with_items: $users
+
+# - name: install cabal packages for all users
+#   command: su -c "PATH=$PATH:/home/{{ item[0] }}/.cabal/bin; cabal install {{ item[1] }}" {{ item[0] }}
+#   with_nested:
+#     - users
+#     - ['alex','happy','aeson','base','bytestring','haskell-src-exts','haddock','ghc-mod','stylish-haskell','haskell-docs','hdevtools']

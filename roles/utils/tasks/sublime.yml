@@ -21,26 +21,33 @@
     src: sublime_text.desktop
     dest: /usr/share/applications
 
-- name: Install typescript plugin
-  git: 
-    repo: https://github.com/Railk/T3S.git
-    dest: /home/{{ item }}/.config/sublime-text-3/Packages/T3S
-  with_items: $users
+- name: copy Sublime Text preferences
+  copy: >
+    src="sublime_text/{{ item[1] }}" 
+    dest="/home/{{ item[0] }}/.config/sublime-text-3/Packages/User"
+    owner={{ item[0] }}
+  with_nested: 
+    - users
+    - [ 'Default (Linux).sublime-keymap', 'Preferences.sublime-settings']
+  sudo: yes
 
-- name: Set owner for typescript plugin
-  shell: >
-    chown -R {{ item }}:{{ item }}
-    /home/{{ item }}/.config/sublime-text-3/Packages/T3S
-  with_items: $users
+- name: Sublime haskell preferences
+  template:
+    src=sublime_text/SublimeHaskell.sublime-settings
+    dest="/home/{{ item }}/.config/sublime-text-3/Packages/User"
+    owner={{ item }}
+  with_items: users
 
-- name: Install typescript plugin synthax
-  git: 
-    repo: https://github.com/raph-amiard/sublime-typescript.git
-    dest: /home/{{ item }}/.config/sublime-text-3/Packages/sublime-typescript
-  with_items: $users
+- name: copy Sublime Text preferences
+  copy: >
+    src="sublime_text/PackageControl.sublime-settings"
+    dest="/home/{{ item }}/.config/sublime-text-3/Packages/User/Package Control.sublime-settings"
+    owner={{ item }}
+  with_items: users
+  sudo: yes
 
-- name: Set owner for typescript plugin synthax
-  shell: >
-    chown -R {{ item }}:{{ item }}
-    /home/{{ item }}/.config/sublime-text-3/Packages/sublime-typescript
-  with_items: $users
+- name: install Package control
+  get_url:
+    url: $sublime_package_control_url
+    dest: /home/{{ item }}/.config/sublime-text-3/Installed Packages/Package Control.sublime-package
+  with_items: users

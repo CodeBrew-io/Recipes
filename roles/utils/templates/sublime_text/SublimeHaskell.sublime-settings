@@ -1,0 +1,5 @@
+{
+	"add_to_PATH": [
+		"/home/{{ item }}/.cabal/bin"
+	]	
+}

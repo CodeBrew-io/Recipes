@@ -1,0 +1,10 @@
+{
+        "installed_packages":
+        [
+                "JSONLint",
+                "LESS",
+                "Pretty JSON",
+                "SublimeHaskell",
+                "Git"
+        ]
+}
