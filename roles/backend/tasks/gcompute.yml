@@ -1,0 +1,14 @@
+- name: download google gcutils
+  get_url: 
+    url: $google_cutils_url
+    dest: /home/Downloads/{{ google_cutils_archive }}
+
+- name: untar google gcutils
+  shell: >
+    tar -C /opt 
+    -xzf /home/Downloads/{{ google_cutils_archive }}
+    creates=/opt/{{ google_cutils_folder }}
+  sudo: yes
+
+- name: symlink to bin
+  file: src=/opt/{{ google_cutils_folder }}/gcutil dest=/usr/local/bin/gcutil state=link

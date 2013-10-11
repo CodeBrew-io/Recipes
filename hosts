@@ -1,2 +1,5 @@
 [devs]
-l4817-[01:05].lerb.polymtl.ca
+l4817-[01-05].lerb.polymtl.ca
+
+[prod]
+162.222.176.202

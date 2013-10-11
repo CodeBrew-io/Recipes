@@ -1,7 +1,3 @@
-oracle_java_filename: jdk-7u10-linux-x64.rpm
-oracle_java_url: http://download.oracle.com/otn-pub/java/jdk/7u10-b18/$oracle_java_filename
-oracle_header: "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com"
-
 intellij_url: http://download-ln.jetbrains.com/idea/ideaIC-12.1.4.tar.gz
 intellij_sbt_url: http://plugins.jetbrains.com/plugin/download?pr=&updateId=11926
 intellij_scala_url: http://plugins.jetbrains.com/plugin/download?pr=&updateId=14078
@@ -13,3 +9,8 @@ thrift_version: 0.9.0
 thrift_folder: "thrift-{{ thrift_version }}"
 thrift_archive: "{{ thrift_folder }}.tar.gz"
 thrift_url: http://mirror.csclub.uwaterloo.ca/apache/thrift/{{ thrift_version }}/{{ thrift_folder }}.tar.gz
+
+google_cutils_version: 1.9.1
+google_cutils_folder: "gcutil-{{ google_cutils_version }}"
+google_cutils_archive: "{{ google_cutils_folder }}.tar.gz"
+google_cutils_url: https://google-compute-engine-tools.googlecode.com/files/{{ google_cutils_archive }}

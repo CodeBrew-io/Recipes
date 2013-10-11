@@ -1,0 +1,6 @@
+---
+- name: Prod install
+  hosts: prod
+  user: gui
+  roles:
+    - jvm
