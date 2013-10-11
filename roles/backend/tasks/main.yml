@@ -2,3 +2,4 @@
 - include: intellij.yml
 - include: sbt.yml
 - include: haskell.yml
+- include: thrift.yml

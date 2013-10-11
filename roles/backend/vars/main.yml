@@ -8,3 +8,8 @@ intellij_scala_url: http://plugins.jetbrains.com/plugin/download?pr=&updateId=14
 
 sbt_version: 0.13.0
 sbt_url: http://repo.scala-sbt.org/scalasbt/sbt-native-packages/org/scala-sbt/sbt/{{ sbt_version }}/sbt.rpm
+
+thrift_version: 0.9.0
+thrift_folder: "thrift-{{ thrift_version }}"
+thrift_archive: "{{ thrift_folder }}.tar.gz"
+thrift_url: http://mirror.csclub.uwaterloo.ca/apache/thrift/{{ thrift_version }}/{{ thrift_folder }}.tar.gz
