@@ -1,7 +1,9 @@
+# # Redhat install (Fedora, CentOS, ...)
 - name: create download folder
   file: 
     path: /home/Downloads
     state: directory
+  sudo: yes
 
 - name: Get java oracle
   command: >
@@ -9,6 +11,7 @@
     $oracle_java_url 
     -O /home/Downloads/$oracle_java_filename
     creates=/home/Downloads/$oracle_java_filename
+  sudo: yes
 
 - name: Install java
   command: >
@@ -24,11 +27,11 @@
   command: >
     update-alternatives --install "/usr/bin/{{ item }}" "{{ item }}" 
     "/usr/java/jdk1.7.0_10/bin/{{ item }}" 1
-  with_items: ${java_apps.stdout_lines}
+  with_items: java_apps.stdout_lines
   sudo: yes
 
 - name: Set alternatives
   command: >
     update-alternatives --set "{{ item }}" "/usr/java/jdk1.7.0_10/bin/{{ item }}"
-  with_items: ${java_apps.stdout_lines}
+  with_items: java_apps.stdout_lines
   sudo: yes

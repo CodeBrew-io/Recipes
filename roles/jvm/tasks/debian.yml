@@ -1,0 +1,29 @@
+- name: Create java repo list
+  shell: >
+    echo 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main' >/etc/apt/sources.list.d/java.list 
+    creates=/etc/apt/sources.list.d/java.list
+  sudo: yes
+
+- name: Add repo key
+  command: >
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886
+    creates=/usr/bin/java
+  sudo: yes
+
+- name: Accept java license
+  shell: >
+    echo 'oracle-java7-installer shared/accepted-oracle-license-v1-1 select true' | debconf-set-selections
+    creates=/usr/bin/java
+  sudo: yes
+
+- name: Update apt
+  command: >
+    apt-get update -y
+    creates=/usr/bin/java
+  sudo: yes
+
+- name: Install Oracle Java 7
+  command: >
+    apt-get install oracle-java7-set-default -y
+    creates=/usr/bin/java
+  sudo: yes
