@@ -1,4 +1,4 @@
-- name: create deployment folder
+- name: create local deployment folder
   local_action: file path=$deployment_folder state=directory
 
 - name: clone project locally
@@ -10,6 +10,11 @@
 - name: locally package project
   local_action: shell cd {{ project_folder }} && sbt {{ subproject_name }}/{{ subproject_package_task }}
 
+- name: create deployment folder
+  file: path=$deployment_folder state=directory
+
+- name: copy dist
+  copy: src="{{ project_folder }}/{{ subproject_package_path }}" dest=$deployment_folder
 
   # name: always upload HEAD
   # file: path:~/

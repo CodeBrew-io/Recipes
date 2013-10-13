@@ -20,18 +20,19 @@
   sudo: yes
 
 - name: Register java apps
-  command: ls /usr/java/jdk1.7.0_10/bin
+  command: ls /usr/java/jdk1.7.0_10/bin creates=/usr/bin/java
   register: java_apps
 
 - name: Install alternatives
   command: >
     update-alternatives --install "/usr/bin/{{ item }}" "{{ item }}" 
     "/usr/java/jdk1.7.0_10/bin/{{ item }}" 1
+    creates=/usr/bin/java
   with_items: java_apps.stdout_lines
   sudo: yes
 
-- name: Set alternatives
-  command: >
-    update-alternatives --set "{{ item }}" "/usr/java/jdk1.7.0_10/bin/{{ item }}"
-  with_items: java_apps.stdout_lines
-  sudo: yes
+# - name: Set alternatives
+#   command: >
+#     update-alternatives --set "{{ item }}" "/usr/java/jdk1.7.0_10/bin/{{ item }}"
+#   with_items: java_apps.stdout_lines
+#   sudo: yes

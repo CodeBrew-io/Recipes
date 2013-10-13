@@ -1,5 +1,8 @@
 [devs]
 l4817-[01-05].lerb.polymtl.ca
 
-[prod]
-162.222.176.202
+[webapp]
+l4817-03.lerb.polymtl.ca
+
+[scala_eval]
+l4817-03.lerb.polymtl.ca
