@@ -1,0 +1,11 @@
+---
+- name: prepare install
+  hosts: scala_eval
+  user: gui
+  roles:
+    # - jvm
+    - service_from_sbt
+  vars:
+    subproject_name: scalaEval
+    subproject_package_task: one-jar
+    subproject_package_path: eval/target/scala-2.10/eval_2.10-0.1.0-SNAPSHOT-one-jar.jar

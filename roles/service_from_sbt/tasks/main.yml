@@ -1,0 +1,26 @@
+- name: create deployment folder
+  local_action: file path=$deployment_folder state=directory
+
+- name: clone project locally
+  local_action: git repo=$project_git_url dest=$project_folder version=$version
+
+- name: locally test project
+  local_action: shell cd {{ project_folder }} && sbt {{subproject_name}}/test
+
+- name: locally package project
+  local_action: shell cd {{ project_folder }} && sbt {{ subproject_name }}/{{ subproject_package_task }}
+
+
+  # name: always upload HEAD
+  # file: path:~/
+
+  # name: upload subproject to server
+
+
+# 
+
+# install service
+
+# update version symlink
+
+# restart service
