@@ -1,8 +1,14 @@
 [devs]
 l4817-[01-05].lerb.polymtl.ca
 
-[webapp]
+[webapp_stage]
 l4817-03.lerb.polymtl.ca
 
-[scala_eval]
+[scala_eval_stage]
 l4817-03.lerb.polymtl.ca
+
+[webapp_prod]
+serveur3.lerb.polymtl.ca
+
+[scala_prod]
+serveur3.lerb.polymtl.ca

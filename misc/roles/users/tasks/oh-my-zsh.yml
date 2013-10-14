@@ -3,8 +3,11 @@
     src: useradd
     dest: /etc/default/
 
-- name: Install zshrc
-  yum: name=zsh
+- name: Install zshrc and git
+  yum: name=$item
+  with_items:
+    - zsh
+    - git-core
 
 - name: Install oh-my-zsh
   git: 
