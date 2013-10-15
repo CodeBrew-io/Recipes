@@ -2,6 +2,8 @@
   user: name={{ user.name }} password={{ user.pass }}
   sudo: yes
 
+# Make shure visudo has the following line uncommented
+#%wheel  ALL=(ALL)       ALL
 - name: Add to wheel group so they can sudo
   command: usermod -a -G wheel {{ user.name }}
 
