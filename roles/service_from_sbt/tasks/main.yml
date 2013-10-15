@@ -1,31 +1,48 @@
-- name: create local deployment folder
+- name: create local deployment folder 
   local_action: file path=$deployment_folder state=directory
+  sudo: False
 
 - name: clone project locally
   local_action: git repo=$project_git_url dest=$project_folder version=$version
+  sudo: False
 
 - name: locally test project
   local_action: shell cd {{ project_folder }} && sbt {{subproject_name}}/test
+  sudo: False
 
 - name: locally package project
   local_action: shell cd {{ project_folder }} && sbt {{ subproject_name }}/{{ subproject_package_task }}
+  sudo: False
 
 - name: create deployment folder
-  file: path=$deployment_folder state=directory
+  file: path=$deployment_folder state=directory owner=$user group=$user
 
-- name: copy dist
+- name: always upload fresh package when version is HEAD
+  file: path="{{ deployment_folder }}/{{ subproject_package_archive }}" state=absent
+  when_string: $version == 'HEAD'
+
+- name: upload subproject to server
   copy: src="{{ project_folder }}/{{ subproject_package_path }}" dest=$deployment_folder
 
-  # name: always upload HEAD
-  # file: path:~/
+- name: always unzip fresh package when version is HEAD
+  file: path=$service_dest state=absent
+  when_string: $version == 'HEAD'
 
-  # name: upload subproject to server
+- name: unzip archive
+  shell: > 
+    cd $deployment_folder && 
+    unzip $subproject_package_archive -d $service_dest_root
+    creates=$service_dest
 
+- name: create service users
+  user: name={{ service_user }} createhome=no shell=/sbin/nologin
+  sudo: yes
 
-# 
+- name: setup service user
+  shell: chown -R $service_user:$service_user $service_dest
+  sudo: yes
 
-# install service
-
-# update version symlink
-
-# restart service
+- name: install service
+  template: src=service.sh dest=/etc/init.d/{{ service_name }} owner=root group=root mode=0755
+  notify: restart service
+  sudo: yes

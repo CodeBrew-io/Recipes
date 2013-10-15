@@ -2,4 +2,7 @@ deployment_folder: /home/{{ user }}/Deployments
 project_name: Sauce
 project_folder: "{{ deployment_folder }}/{{ project_name }}"
 project_git_url: https://github.com/LOG4900/Sauce.git
-version: HEAD
+
+service_command: java -jar {{ subproject_package_file }}
+service_dest_root: /opt
+service_dest: "{{ service_dest_root }}/{{ subproject_package_directory }}"
