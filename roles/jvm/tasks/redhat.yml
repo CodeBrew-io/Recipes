@@ -1,4 +1,4 @@
-# # Redhat install (Fedora, CentOS, ...)
+# # Redhat install (Fedora, CentOS, RedHatLinux, ...)
 - name: create download folder
   file: 
     path: /home/Downloads
@@ -7,32 +7,34 @@
 
 - name: Get java oracle
   command: >
-    wget --no-cookies --header "$oracle_header" 
-    $oracle_java_url 
-    -O /home/Downloads/$oracle_java_filename
+    wget 
+      --no-cookies
+      --no-check-certificate
+      --header "$oracle_header"
+      -O /home/Downloads/$oracle_java_filename
+      $oracle_java_url 
     creates=/home/Downloads/$oracle_java_filename
   sudo: yes
 
 - name: Install java
   command: >
     rpm -i /home/Downloads/$oracle_java_filename
-    creates=/usr/java/jdk1.7.0_10
+    creates=/usr/java
   sudo: yes
 
 - name: Register java apps
-  command: ls /usr/java/jdk1.7.0_10/bin creates=/usr/bin/java
+  command: ls /usr/java/jdk1.7.0_10/bin
   register: java_apps
 
 - name: Install alternatives
   command: >
     update-alternatives --install "/usr/bin/{{ item }}" "{{ item }}" 
     "/usr/java/jdk1.7.0_10/bin/{{ item }}" 1
-    creates=/usr/bin/java
   with_items: java_apps.stdout_lines
   sudo: yes
 
-# - name: Set alternatives
-#   command: >
-#     update-alternatives --set "{{ item }}" "/usr/java/jdk1.7.0_10/bin/{{ item }}"
-#   with_items: java_apps.stdout_lines
-#   sudo: yes
+- name: Set alternatives
+  command: >
+    update-alternatives --set "{{ item }}" "/usr/java/jdk1.7.0_10/bin/{{ item }}"
+  with_items: java_apps.stdout_lines
+  sudo: yes
