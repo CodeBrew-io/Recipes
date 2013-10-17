@@ -1,5 +1,5 @@
 backend_port: 9000
-server_name: scala.codebrew.io
+server_name: codebrew.io
 
 certificate_key: codebrew.io.key
 certificate_key_dest: /etc/ssl/private

@@ -32,5 +32,5 @@
   shell: chown root:root {{ certificate_key_dest }}/{{ certificate_key }}
 
 - name: Copy nginx configuration
-  template: src=codebrew.conf dest=/etc/nginx/conf.d/codebrew.conf
+  template: src=codebrew.nginx dest=/etc/nginx/conf.d/codebrew.conf
   notify: restart nginx
