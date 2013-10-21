@@ -6,12 +6,22 @@
   local_action: git repo=$project_git_url dest=$project_folder version=$version
   sudo: False
 
+- name: clone secrets
+  local_action: git repo=$secret_url dest=$secret_folder
+  sudo: False
+  when_string: $secret_url != ''
+
+- name: copy secrets
+  local_action: shell cp -fr {{ secret_folder }}/* {{ project_folder }}/{{ subproject_name }}/conf/
+  sudo: False
+  when_string: $secret_url != ''
+
 - name: locally test project
   local_action: shell cd {{ project_folder }} && sbt {{subproject_name}}/test
   sudo: False
 
 - name: locally package project
-  local_action: shell cd {{ project_folder }} && sbt {{ subproject_name }}/{{ subproject_package_task }}
+  local_action: shell cd {{ project_folder }} && sbt {{ subproject_name }}/dist
   sudo: False
 
 - name: create deployment folder

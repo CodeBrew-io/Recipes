@@ -8,13 +8,9 @@
     # - nginx
   vars:
     user: gui
-    version: HEAD
+    version_: 0.1.2
+    version: v{{ version_ }}
     service_name: codebrew
     service_user: web
-    service_path: 
-    service_cmd: 
-    subproject_name: server
-    subproject_package_task: dist
-    subproject_package_directory: server-0.1.0-SNAPSHOT
-    subproject_package_archive: "{{ subproject_package_directory }}.zip"
-    subproject_package_path: target/universal/{{ subproject_package_archive }}
+    secret_url: git@bitbucket.org:log4900/secret.git
+    subproject_name: web

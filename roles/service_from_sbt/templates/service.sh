@@ -19,7 +19,7 @@ RUN_CMD={{ service_cmd }}
 RETVAL=0
  
 start() {
-	daemon "{{ service_dest }}/bin/server >/dev/null &"
+	daemon "{{ service_dest }}/bin/{{ subproject_name }} >/dev/null &"
 	RETVAL=$?
  
 	if [ $RETVAL -eq 0 ]; then

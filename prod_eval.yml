@@ -3,14 +3,13 @@
   hosts: scala_eval
   user: $user
   roles:
-    # - jvm
+    - jvm
     - service_from_sbt
   vars:
     user: gui
-    version: HEAD
+    version_: 0.1.0
+    version: v{{ version_ }}
     subproject_name: scalaEval
-    subproject_package_task: one-jar
-    subproject_package_file: eval_2.10-0.1.0-SNAPSHOT-one-jar.jar
-    subproject_package_path: eval/target/scala-2.10/{{ subproject_package_file }}
-    service_name: scala-eval
+    service_name: scalaEval
     service_user: eval
+    secret_url: ""
