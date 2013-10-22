@@ -7,9 +7,9 @@
     - service_from_sbt
   vars:
     user: gui
-    version_: 0.1.0
+    version_: 0.1.4
     version: v{{ version_ }}
-    subproject_name: scalaEval
     service_name: scalaEval
-    service_user: eval
+    service_user: scalaEval
     secret_url: ""
+    subproject_name: scalaEval
