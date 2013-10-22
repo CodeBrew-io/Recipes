@@ -1,11 +1,8 @@
-- name: Create users
-  user: name={{ user.name }} password={{ user.pass }}
-  sudo: yes
-
 # Make shure visudo has the following line uncommented
 #%wheel  ALL=(ALL)       ALL
-- name: Add to wheel group so they can sudo
-  command: usermod -a -G wheel {{ user.name }}
+- name: Create users
+  user: name={{ user.name }} password={{ user.pass }} groups=wheel shell=/usr/bin/zsh
+  sudo: yes
 
 - name: Setup git config
   template: src=.gitconfig.j2 dest=/home/{{ user.name }}/.gitconfig owner={{ user.name }} group={{ user.name }} mode=0664

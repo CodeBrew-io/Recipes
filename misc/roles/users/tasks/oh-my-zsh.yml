@@ -1,8 +1,3 @@
-- name: Set zsh as the default bash
-  copy: 
-    src: useradd
-    dest: /etc/default/
-
 - name: Install zshrc and git
   yum: name=$item
   with_items:
