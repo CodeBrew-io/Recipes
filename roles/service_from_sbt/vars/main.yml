@@ -1,0 +1,13 @@
+deployment_folder: /home/{{ user }}/Deployments
+project_name: Sauce
+project_folder: "{{ deployment_folder }}/{{ project_name }}"
+project_git_url: https://github.com/LOG4900/Sauce.git
+
+secret_folder: "{{ deployment_folder }}/secret"
+
+service_dest_root: /opt
+service_dest: "{{ service_dest_root }}/{{ subproject_package_directory }}"
+
+subproject_package_directory: "{{ subproject_name }}-{{ version_ }}"
+subproject_package_archive: "{{ subproject_package_directory }}.zip"
+subproject_package_path: "{{ subproject_name }}/target/universal/{{ subproject_package_archive }}"

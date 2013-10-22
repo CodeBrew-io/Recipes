@@ -24,4 +24,5 @@
 - name: Set owner for know_hosts
   shell: >
     chown {{ user.name }}:{{ user.name }}
-    /home/{{ user.name }}/.ssh/know_hosts
+    /home/{{ user.name }}/.ssh/known_hosts
+  sudo: yes
