@@ -1,0 +1,39 @@
+- name: install thrift dependencies
+  yum: name=$item
+  with_items:
+    - openssl-devel.x86_64
+    - automake
+    - libtool
+    - pkgconfig
+  sudo: yes
+
+- name: download thrift
+  get_url: 
+    url: $thrift_url
+    dest: /home/Downloads/{{ thrift_archive }}
+
+- name: untar thrift
+  shell: >
+    tar -C /home/Downloads/ -xzf /home/Downloads/{{ thrift_archive }}
+    creates=/home/Downloads/{{ thrift_folder }}
+  sudo: yes
+
+- name: configure thrift
+  command: >
+    /home/Downloads/{{ thrift_folder }}/configure 
+      --disable-debug 
+      --without-python 
+      --without-perl 
+      --without-java 
+      --without-php 
+      --without-erlang
+      --without-haskell
+  sudo: yes
+
+- name: make thrift
+  command: make -j6
+  sudo: yes
+
+- name: install thrift
+  command: make install
+  sudo: yes

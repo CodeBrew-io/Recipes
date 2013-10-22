@@ -1,0 +1,12 @@
+{
+        "installed_packages":
+        [
+                "JSONLint",
+                "nginx",
+                "LESS",
+                "Pretty JSON",
+                "SublimeHaskell",
+                "Git",
+                "Play 2.0"
+        ]
+}

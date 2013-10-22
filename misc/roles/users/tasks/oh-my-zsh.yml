@@ -1,0 +1,25 @@
+- name: Install zshrc and git
+  yum: name=$item
+  with_items:
+    - zsh
+    - git-core
+
+- name: Install oh-my-zsh
+  git: 
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: /home/{{ user.name }}/.oh-my-zsh
+
+- name: Set owner
+  shell: >
+    chown -R {{ user.name }}:{{ user.name }}
+    /home/{{ user.name }}/.oh-my-zsh
+  sudo: yes
+
+- name: Set template
+  copy: src=zshrc dest=/home/{{ user.name }}/.zshrc
+
+- name: Set owner
+  shell: >
+    chown {{ user.name }}:{{ user.name }}
+    /home/{{ user.name }}/.zshrc
+  sudo: yes

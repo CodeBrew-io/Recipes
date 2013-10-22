@@ -3,8 +3,9 @@
   hosts: devs
   user: gui
   roles:
-    - backend
+    - jvm
     - utils
+    - backend
     - frontend
   vars:
     users:

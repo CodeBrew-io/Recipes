@@ -1,0 +1,8 @@
+backend_port: 9000
+server_name: codebrew.io
+
+certificate_key: codebrew.io.key
+certificate_key_dest: /etc/ssl/private
+
+certificate: codebrew.io.crt
+certificate_dest: /etc/ssl/certs
