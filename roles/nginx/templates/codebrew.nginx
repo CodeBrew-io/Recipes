@@ -40,4 +40,10 @@ server {
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection $connection_upgrade;
   }
+
+  # errors
+  error_page 502 /errors/502.html
+  location = /errors/* {
+    root {{ nginx_error_pages }};
+  }
 }

@@ -31,6 +31,15 @@
 - name: Set owner for certificate key
   shell: chown root:root {{ certificate_key_dest }}/{{ certificate_key }}
 
+- name: create error pages folder
+  file: path="{{ nginx_error_pages }}/" state=directory
+
+- name: copy error pages
+  copy: 
+    src: 502.html
+    dest: $nginx_error_pages
+  sudo: yes
+
 - name: Copy nginx configuration
   template: src=codebrew.nginx dest=/etc/nginx/conf.d/codebrew.conf
   notify: restart nginx

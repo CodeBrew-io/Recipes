@@ -6,3 +6,5 @@ certificate_key_dest: /etc/ssl/private
 
 certificate: codebrew.io.crt
 certificate_dest: /etc/ssl/certs
+
+nginx_error_pages: /etc/nginx/html
