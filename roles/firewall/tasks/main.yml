@@ -1,0 +1,35 @@
+- name: install iptables
+  yum: name=iptables
+  sudo: yes
+
+- command: systemctl mask firewalld.service
+  ignore_errors: True
+  sudo: yes
+
+- command: systemctl enable iptables.service
+  ignore_errors: True
+  sudo: yes
+
+- command: systemctl enable ip6tables.service
+  ignore_errors: True
+  sudo: yes
+
+- name: Copy iptables
+  template: src=iptables.j2 dest=/etc/sysconfig/iptables
+  sudo: yes
+
+- name: Copy ip6tables
+  template: src=ip6tables.j2 dest=/etc/sysconfig/ip6tables
+  sudo: yes
+
+- name: restart iptables
+  service: name=iptables state=restarted
+
+- name: restart ip6tables
+  service: name=ip6tables state=restarted
+
+- command: systemctl stop firewalld.service
+  ignore_errors: True
+  sudo: yes
+
+- debug: msg=$hostvars

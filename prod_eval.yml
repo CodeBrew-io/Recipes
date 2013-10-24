@@ -1,14 +1,21 @@
 ---
+- name: gather info
+  hosts: webapp
+  gather_facts: True
+
 - name: prepare install
   hosts: scala_eval
   user: $user
   roles:
     - jvm
+    - firewall
     - service_from_sbt
   vars:
     user: gui
-    version_: 0.1.4
+    version_: 0.1.5
     version: v{{ version_ }}
+    service_port: 8001
+    service_users: webapp
     service_name: scalaEval
     service_user: scalaEval
     secret_url: ""
