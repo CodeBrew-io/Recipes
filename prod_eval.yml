@@ -7,14 +7,21 @@
   hosts: scala_eval
   user: $user
   roles:
-    - jvm
     - firewall
+    - jvm
     - service_from_sbt
+  vars_files:
+    - common_vars.yml
   vars:
     user: gui
-    version_: 0.1.5
+    version_: 0.1.11
     version: v{{ version_ }}
     service_port: 8001
+    service_java_ops:
+      - -Dio.codebrew.lookupHostname={{ groups['webapp'][0] }}
+      - -Dio.codebrew.lookupPort={{ lookup_port }}
+      - -Dio.codebrew.scalaEvalHostname={{ ansible_default_ipv4.address }}
+      - -Dio.codebrew.scalaEvalPort={{ service_port }}
     service_users: webapp
     service_name: scalaEval
     service_user: scalaEval

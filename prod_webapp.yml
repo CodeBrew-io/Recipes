@@ -1,20 +1,25 @@
 ---
 - name: gather info
   hosts: scala_eval
+  gather_facts: True
 
 - name: Prod install
   hosts: webapp
   user: $user
   roles:
     - jvm
-    - firewall
     - service_from_sbt
     - nginx
+    - firewall
+  vars_files:
+    - common_vars.yml
   vars:
     user: gui
-    version_: 0.1.5
+    version_: 0.1.11
     version: v{{ version_ }}
-    service_port: 8000
+    service_port: "{{ lookup_port }}"
+    service_java_ops:
+      - -Dio.codebrew.lookupPort={{ lookup_port }}
     service_users: scala_eval
     service_name: codebrew
     service_user: web
