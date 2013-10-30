@@ -1,0 +1,6 @@
+es_version: 0.90.5
+es_filename: elasticsearch-{{es_version}}.noarch.rpm
+es_download_url: https://download.elasticsearch.org/elasticsearch/elasticsearch/{{ es_filename }}
+
+es_url: localhost:9200
+es_head_plugin: True

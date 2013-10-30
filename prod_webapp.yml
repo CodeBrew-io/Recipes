@@ -7,10 +7,11 @@
   hosts: webapp
   user: $user
   roles:
+    - firewall
     - jvm
     - service_from_sbt
+    - elasticsearch
     - nginx
-    - firewall
   vars_files:
     - common_vars.yml
   vars:

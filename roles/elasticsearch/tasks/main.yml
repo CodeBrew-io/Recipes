@@ -1,0 +1,34 @@
+- name: create download folder
+  file: 
+    path: /home/Downloads
+    state: directory
+  sudo: yes
+
+- name: Download ElasticSearch
+  get_url: 
+    url: $es_download_url
+    dest: /home/Downloads/{{ es_filename }}
+  sudo: yes
+
+- name: Install ES .deb file
+  shell: rpm -i /home/Downloads/{{ es_filename }} creates=/etc/elasticsearch
+  sudo: yes
+
+- name: Copy es configuration
+  template: src=elasticsearch.yml dest=/etc/elasticsearch/elasticsearch.yml
+  notify: restart elasticsearch
+  sudo: yes
+
+- name: Install ES Head
+  command: >
+    /usr/share/elasticsearch/bin/plugin -install mobz/elasticsearch-head
+    creates=/usr/share/elasticsearch/plugins/head
+  when: es_head_plugin
+  sudo: yes
+
+- name: Npm head
+  shell: >
+    cd /usr/share/elasticsearch/plugins/head/_site && /usr/local/bin/npm install
+    creates=/usr/share/elasticsearch/plugins/head/_site/dist
+  when: es_head_plugin
+  sudo: yes

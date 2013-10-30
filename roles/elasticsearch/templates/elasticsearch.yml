@@ -1,0 +1,2 @@
+cluster.name : {{ es_cluster_name }}
+node.name : {{ es_node_name }}

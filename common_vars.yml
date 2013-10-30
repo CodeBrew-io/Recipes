@@ -1,2 +1,5 @@
 ---
 lookup_port: 8000
+
+es_cluster_name: snippets_service_cluster
+es_node_name: snippets_service_node
