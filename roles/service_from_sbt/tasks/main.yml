@@ -29,14 +29,14 @@
 
 - name: always upload fresh package when version is HEAD
   file: path="{{ deployment_folder }}/{{ subproject_package_archive }}" state=absent
-  when_string: $version == 'HEAD'
+  # when_string: $version == 'HEAD'
 
 - name: upload subproject to server
   copy: src="{{ project_folder }}/{{ subproject_package_path }}" dest=$deployment_folder
 
 - name: always unzip fresh package when version is HEAD
   file: path=$service_dest state=absent
-  when_string: $version == 'HEAD'
+  # when_string: $version == 'HEAD'
 
 - name: unzip archive
   shell: > 

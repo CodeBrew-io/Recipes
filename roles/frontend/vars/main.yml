@@ -1,5 +1,6 @@
-nodejs_version: 0.10.15
-nodejs_make_jobs: 4
-
-brackets_build: 30
-brackets_url: http://download.brackets.io/file.cfm?platform=LINUX64&build=$brackets_build
+project_name: Frontend
+project_git_url: "https://github.com/CodeBrew-io/{{ project_name }}.git"
+project_folder: "{{ deployment_folder }}/{{ project_name }}"
+project_package: "{{ project_name }}-{{ version_ }}.tar.bz2"
+project_dest_root: /opt
+project_dest: "{{ project_dest_root }}/{{ project_name }}-{{ version_ }}"

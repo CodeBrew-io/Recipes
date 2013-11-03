@@ -7,20 +7,22 @@
   hosts: webapp
   user: $user
   roles:
-    - firewall
-    - jvm
-    - service_from_sbt
-    - elasticsearch
+    # - firewall
+    # - jvm
+    # - elasticsearch
+    # - service_from_sbt
+    - frontend
     - nginx
   vars_files:
-    - common_vars.yml
+    - vars/lookup.yml
+    - vars/elasticsearch.yml
+    - vars/codebrew.yml
+    - vars/frontend.yml
   vars:
-    user: gui
-    version_: 0.1.11
-    version: v{{ version_ }}
     service_port: "{{ lookup_port }}"
     service_java_ops:
       - -Dio.codebrew.lookupPort={{ lookup_port }}
+      - -DapplyEvolutions.default=true
     service_users: scala_eval
     service_name: codebrew
     service_user: web

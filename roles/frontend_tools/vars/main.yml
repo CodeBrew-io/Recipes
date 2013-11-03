@@ -1,0 +1,5 @@
+nodejs_version: 0.10.15
+nodejs_make_jobs: 4
+
+brackets_build: 30
+brackets_url: http://download.brackets.io/file.cfm?platform=LINUX64&build=$brackets_build

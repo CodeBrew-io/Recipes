@@ -1,0 +1,1 @@
+frontend_dest: /opt/{{ project_name }}-{{ version }}

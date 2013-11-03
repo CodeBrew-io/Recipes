@@ -4,12 +4,12 @@
   user: gui
   roles:
     - jvm
-    - utils
-    - backend
-    - frontend
+    - user_tools
+    - backend_tools
+    - frontend_tools
     - elasticsearch
   vars_files:
-    - common_vars.yml
+    - es_vars.yml
   vars:
     users:
       - gui

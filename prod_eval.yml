@@ -11,11 +11,9 @@
     - jvm
     - service_from_sbt
   vars_files:
-    - common_vars.yml
+    - vars/lookup.yml
+    - vars/codebrew.yml
   vars:
-    user: gui
-    version_: 0.1.11
-    version: v{{ version_ }}
     service_port: 8001
     service_java_ops:
       - -Dio.codebrew.lookupHostname={{ groups['webapp'][0] }}
