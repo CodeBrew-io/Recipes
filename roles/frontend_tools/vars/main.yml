@@ -1,4 +1,4 @@
-nodejs_version: 0.10.15
+nodejs_version: 0.10.21
 nodejs_make_jobs: 4
 
 brackets_build: 30

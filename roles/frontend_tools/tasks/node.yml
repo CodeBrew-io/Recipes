@@ -9,7 +9,7 @@
 
 - name: download Nodejs
   get_url: 
-    url: http://nodejs.org/dist/v0.10.15/node-v{{ nodejs_version }}.tar.gz
+    url: http://nodejs.org/dist/v{{ nodejs_version }}/node-v{{ nodejs_version }}.tar.gz
     dest: /home/Downloads/node-v{{ nodejs_version }}.tar.gz
 
 - name: untar node
