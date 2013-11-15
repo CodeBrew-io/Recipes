@@ -1,5 +1,5 @@
 user: gui
-version_: HEAD #0.1.13
-version: HEAD #v{{ version_ }}
+version_: 0.1.15
+version: v{{ version_ }}
 
 deployment_folder: /home/{{ user }}/Deployments

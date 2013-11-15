@@ -28,7 +28,7 @@
     owner={{ item[0] }}
   with_nested: 
     - users
-    - [ 'Default (Linux).sublime-keymap', 'Preferences.sublime-settings']
+    - [ 'Default (Linux).sublime-keymap', 'Preferences.sublime-settings', 'nginx.sublime-settings']
   sudo: yes
 
 - name: Sublime haskell preferences

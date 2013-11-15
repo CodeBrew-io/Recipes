@@ -1,4 +1,4 @@
-project_name: Frontend
+project_name: "Frontend"
 project_git_url: "https://github.com/CodeBrew-io/{{ project_name }}.git"
 project_folder: "{{ deployment_folder }}/{{ project_name }}"
 project_package: "{{ project_name }}-{{ version_ }}.tar.bz2"

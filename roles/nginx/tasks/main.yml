@@ -9,6 +9,13 @@
 - name: create certificate folder
   file: path="{{ certificate_dest }}/" state=directory recurse=yes
 
+- name: clone secrets
+  local_action: git repo=$secret_url dest=$secret_folder
+  sudo: False
+
+- name: create certificate folder
+  file: path="{{ certificate_dest }}/" state=directory recurse=yes
+
 # Dont forget to concatenate GandiStandardSSLCA.pem at the end of the certificate
 - name: Upload ssl certificate
   copy: 

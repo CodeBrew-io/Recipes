@@ -18,6 +18,10 @@
   local_action: shell cd {{ project_folder }} && grunt build
   sudo: False
 
+- name: always zip when version is HEAD
+  local_action: file path="{{ project_folder }}/{{ project_package }}" state=absent
+  when_string: $version == 'HEAD'
+
 - name: zip project
   local_action: >
     shell cd {{ project_folder }} && 
@@ -27,12 +31,12 @@
 - name: create deployment folder
   file: path=$deployment_folder state=directory owner=$user group=$user
 
-- name: upload subproject to server
-  copy: src="{{ project_folder }}/{{ project_package }}" dest=$deployment_folder
-
 - name: always upload fresh package when version is HEAD
   file: path="{{ deployment_folder }}/{{ project_package }}" state=absent
   when_string: $version == 'HEAD'
+
+- name: upload subproject to server
+  copy: src="{{ project_folder }}/{{ project_package }}" dest=$deployment_folder
 
 - name: always unzip fresh package when version is HEAD
   file: path=$project_dest state=absent

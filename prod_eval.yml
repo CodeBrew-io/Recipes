@@ -9,7 +9,7 @@
   roles:
     - firewall
     - jvm
-    - service_from_sbt
+    - service_from_sbt  
   vars_files:
     - vars/lookup.yml
     - vars/codebrew.yml
@@ -24,4 +24,4 @@
     service_name: scalaEval
     service_user: scalaEval
     secret_url: ""
-    subproject_name: scalaEval
+    service_subproject_name: scalaEval

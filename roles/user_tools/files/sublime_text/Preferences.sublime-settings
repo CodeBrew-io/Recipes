@@ -1,5 +1,6 @@
 {
 	"font_size": 15,
+	"folder_exclude_patterns": [".idea*", ".git"],
 	"ignored_packages":
 	[
 		"Vintage"

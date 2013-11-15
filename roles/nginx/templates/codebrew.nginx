@@ -15,10 +15,18 @@ server {
   rewrite ^ https://$server_name$request_uri? permanent;
 }
 
+# permanent redirect http://wwww.example.com and https://wwww.example.com to https://example.com
+server {
+  server_name www.{{ server_name }};
+  rewrite ^ https://{{ server_name }}$request_uri? permanent;
+}
+
 server {
   listen 443 ssl;
   server_name {{ server_name }};
   keepalive_timeout 70;
+
+  root {{ frontend_dest }}/dist;
 
   ssl on;
   ssl_certificate {{ certificate_dest }}/{{ certificate }};
@@ -35,10 +43,18 @@ server {
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection $connection_upgrade;
+    keepalive_timeout 3600;
+  }
+
+  location = /scalex {
+    proxy_pass http://api.scalex.org/;
+  }
+
+  location = / {
+    index index.html;
   }
 
   location / {
-    root {{ project_dest }}/dist;
     try_files $uri $uri/ @codebrew;
   }
 

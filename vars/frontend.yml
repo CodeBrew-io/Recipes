@@ -1,1 +1,2 @@
-frontend_dest: /opt/{{ project_name }}-{{ version }}
+project_name: Frontend
+frontend_dest: /opt/{{ project_name }}-{{ version_ }}

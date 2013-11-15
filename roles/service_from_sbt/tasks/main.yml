@@ -3,7 +3,7 @@
   sudo: False
 
 - name: clone project locally
-  local_action: git repo=$project_git_url dest=$project_folder version=$version
+  local_action: git repo=$service_project_git_url dest=$service_project_folder version=$version
   sudo: False
 
 - name: clone secrets
@@ -12,16 +12,16 @@
   when_string: $secret_url != ''
 
 - name: copy secrets
-  local_action: shell cp -fr {{ secret_folder }}/* {{ project_folder }}/{{ subproject_name }}/conf/
+  local_action: shell cp -fr $secret_folder/* $service_project_folder/{{ service_subproject_name }}/conf/
   sudo: False
   when_string: $secret_url != ''
 
 - name: locally test project
-  local_action: shell cd {{ project_folder }} && sbt {{subproject_name}}/test
+  local_action: shell cd {{ service_project_folder }} && sbt {{ service_subproject_name }}/test
   sudo: False
 
 - name: locally package project
-  local_action: shell cd {{ project_folder }} && sbt {{ subproject_name }}/dist
+  local_action: shell cd {{ service_project_folder }} && sbt {{ service_subproject_name }}/dist
   sudo: False
 
 - name: create deployment folder
@@ -32,7 +32,7 @@
   # when_string: $version == 'HEAD'
 
 - name: upload subproject to server
-  copy: src="{{ project_folder }}/{{ subproject_package_path }}" dest=$deployment_folder
+  copy: src={{ service_project_folder }}/{{ subproject_package_path }} dest=$deployment_folder
 
 - name: always unzip fresh package when version is HEAD
   file: path=$service_dest state=absent
