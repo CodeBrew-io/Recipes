@@ -10,8 +10,6 @@
 . /etc/rc.d/init.d/functions
 
 export JAVA_HOME=/usr/java/jdk1.7.0_10
- 
-USER={{ service_user }}
 
 RUN_CMD={{ service_cmd }}
 
@@ -19,7 +17,7 @@ RUN_CMD={{ service_cmd }}
 RETVAL=0
  
 start() {
-	daemon "{{ service_dest }}/bin/{{ service_subproject_name | lower }} -J\"{{ service_java_ops | join(' ') }}\" &"
+	daemon --user={{ service_user }} "{{ service_dest }}/bin/{{ service_subproject_name | lower }} -J\"{{ service_java_ops | join(' ') }}\" &"
 	RETVAL=$?
  
 	if [ $RETVAL -eq 0 ]; then
