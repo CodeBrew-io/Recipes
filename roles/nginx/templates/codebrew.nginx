@@ -21,10 +21,18 @@ server {
   rewrite ^ https://{{ server_name }}$request_uri? permanent;
 }
 
+gzip  on;
+gzip_http_version 1.1;
+gzip_vary on;
+gzip_comp_level 6;
+gzip_proxied any;
+gzip_types text/plain text/html text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript text/x-js;
+gzip_buffers 16 8k;
+gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+
 server {
   listen 443 ssl;
   server_name {{ server_name }};
-  keepalive_timeout 70;
 
   root {{ frontend_dest }}/dist;
 
@@ -36,18 +44,22 @@ server {
   ssl_prefer_server_ciphers on;
   ssl_session_cache shared:SSL:10m;
   ssl_session_timeout 10m;
-  
+ 
   # websocket
   location = /eval {
     proxy_pass http://backend/eval;
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection $connection_upgrade;
-    keepalive_timeout 3600;
+    proxy_read_timeout 4h;
   }
 
   location = /scalex {
     proxy_pass http://api.scalex.org/;
+  }
+
+  location ~* ^.+\.(css|js|html|woff|otf|eot|svg|tff)$ {
+    expires max;
   }
 
   location = / {
@@ -59,6 +71,7 @@ server {
   }
 
   location @codebrew {
+    expires 1h;
     proxy_set_header X-Real-IP  $remote_addr;
     proxy_set_header Host $host;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
