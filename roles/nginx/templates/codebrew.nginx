@@ -58,7 +58,7 @@ server {
     proxy_pass http://api.scalex.org/;
   }
 
-  location ~* ^.+\.(css|js|html|woff|otf|eot|svg|tff)$ {
+  location ^[scripts|styles]/(.*)$ {
     expires max;
   }
 
@@ -71,7 +71,6 @@ server {
   }
 
   location @codebrew {
-    expires 1h;
     proxy_set_header X-Real-IP  $remote_addr;
     proxy_set_header Host $host;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
