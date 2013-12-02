@@ -21,6 +21,9 @@
     src: sublime_text.desktop
     dest: /usr/share/applications
 
+# - name: remove config
+#   file: path=/home/{{ item[0] }}/.config/sublime-text-3 state=absent
+
 - name: copy Sublime Text preferences
   copy: >
     src="sublime_text/{{ item[1] }}" 

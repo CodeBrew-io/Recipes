@@ -1,29 +1,3 @@
-- name: create local deployment folder 
-  local_action: file path=$deployment_folder state=directory
-  sudo: False
-
-- name: clone project locally
-  local_action: git repo=$service_project_git_url dest=$service_project_folder version=$version
-  sudo: False
-
-- name: clone secrets
-  local_action: git repo=$secret_url dest=$secret_folder
-  sudo: False
-  when_string: $secret_url != ''
-
-- name: copy secrets
-  local_action: shell cp -fr $secret_folder/* $service_project_folder/{{ service_subproject_name }}/conf/
-  sudo: False
-  when_string: $secret_url != ''
-
-- name: locally test project
-  local_action: shell cd {{ service_project_folder }} && sbt {{ service_subproject_name }}/test
-  sudo: False
-
-- name: locally package project
-  local_action: shell cd {{ service_project_folder }} && sbt {{ service_subproject_name }}/dist
-  sudo: False
-
 - name: create deployment folder
   file: path=$deployment_folder state=directory owner=$user group=$user
 

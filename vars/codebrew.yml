@@ -3,3 +3,7 @@ version_: 1.0.0
 version: v{{ version_ }}
 
 deployment_folder: /home/{{ user }}/Deployments
+
+subproject_package_directory: "{{ service_subproject_name }}-{{ version_ }}"
+subproject_package_archive: "{{ subproject_package_directory }}.zip"
+subproject_package_path: "{{ service_subproject_name }}/target/universal/{{ subproject_package_archive }}"

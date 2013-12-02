@@ -10,9 +10,9 @@
   local_action: shell cd {{ project_folder }} && npm install && bower install
   sudo: False
 
-# - name: locally test project
-#   local_action: shell cd {{ project_folder }} && grunt test
-#   sudo: False
+- name: locally test project
+  local_action: shell cd {{ project_folder }} && grunt test
+  sudo: False
 
 - name: locally package project
   local_action: shell cd {{ project_folder }} && grunt build

@@ -1,0 +1,1 @@
+service_project_folder: "{{ deployment_folder }}/{{ service_project_name }}"

@@ -9,9 +9,10 @@
 - name: create certificate folder
   file: path="{{ certificate_dest }}/" state=directory recurse=yes
 
-- name: clone secrets
-  local_action: git repo=$secret_url dest=$secret_folder
-  sudo: False
+# todo get certificate from git instead of /home/user/.ssh
+# - name: clone secrets
+#   local_action: git repo=$secret_url dest=$secret_folder
+#   sudo: False
 
 - name: create certificate folder
   file: path="{{ certificate_dest }}/" state=directory recurse=yes

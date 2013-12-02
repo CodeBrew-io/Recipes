@@ -3,6 +3,20 @@
   hosts: webapp
   gather_facts: True
 
+- name: prepate deployment
+  hosts: local
+  connection: local
+  gather_facts: false
+  user: $user
+  roles:
+  - prepare_service_from_sbt
+  vars_files:
+    - vars/eval.yml
+    - vars/service.yml
+    - vars/codebrew.yml
+  vars:
+    secret_url: ""
+
 - name: prepare install
   hosts: scala_eval
   user: $user
@@ -10,9 +24,6 @@
     - firewall
     - jvm
     - service_from_sbt  
-  vars_files:
-    - vars/lookup.yml
-    - vars/codebrew.yml
   vars:
     service_port: 8001
     service_java_ops:
@@ -23,5 +34,8 @@
     service_users: webapp
     service_name: scalaEval
     service_user: scalaEval
-    secret_url: ""
-    service_subproject_name: scalaEval
+  vars_files:
+    - vars/lookup.yml
+    - vars/codebrew.yml
+    - vars/service.yml
+    - vars/eval.yml

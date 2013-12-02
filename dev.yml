@@ -9,7 +9,7 @@
     - frontend_tools
     - elasticsearch
   vars_files:
-    - es_vars.yml
+    - vars/elasticsearch.yml
   vars:
     users:
       - gui
