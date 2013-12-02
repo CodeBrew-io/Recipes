@@ -17,7 +17,10 @@ RUN_CMD={{ service_cmd }}
 RETVAL=0
  
 start() {
-	daemon --user={{ service_user }} "{{ service_dest }}/bin/{{ service_subproject_name | lower }} -J\"{{ service_java_ops | join(' ') }}\" &"
+{% for port in service_ports %}
+	daemon --user={{ service_user }} "{{ service_dest }}/bin/{{ service_subproject_name | lower }} {{ port }} -J\"{{ service_java_ops | join(' ') }}\" &"
+{% endfor %}
+
 	RETVAL=$?
  
 	if [ $RETVAL -eq 0 ]; then
