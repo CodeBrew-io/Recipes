@@ -21,6 +21,7 @@ server {
   rewrite ^ https://{{ server_name }}$request_uri? permanent;
 }
 
+# compression
 gzip  on;
 gzip_http_version 1.1;
 gzip_vary on;
@@ -45,6 +46,11 @@ server {
   ssl_session_cache shared:SSL:10m;
   ssl_session_timeout 10m;
  
+  # index
+  location = / {
+    index index.html;
+  }
+
   # websocket
   location = /eval {
     proxy_pass http://backend/eval;
@@ -54,29 +60,29 @@ server {
     proxy_read_timeout 4h;
   }
 
+  # scaladoc
   location = /scalex {
     proxy_pass http://api.scalex.org/;
   }
 
-  location ^[scripts|styles]/(.*)$ {
+  # static assets
+  location ~ ^/(scripts|styles|images|libs) {
     expires max;
+    try_files $uri $uri/;
   }
 
-  location = / {
-    index index.html;
-  }
-
-  location / {
-    try_files $uri $uri/ @codebrew;
-  }
-
-  location @codebrew {
+  # play backend
+  location ~ ^/(webjars|assets|user|login|logout|snippets|authenticate) {
     proxy_set_header X-Real-IP  $remote_addr;
     proxy_set_header Host $host;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_pass http://backend;
   }
-  
+
+  location / {
+    try_files $uri /index.html;
+  }
+
   # errors
   error_page 502 /errors/502.html;
   location = /errors/* {
