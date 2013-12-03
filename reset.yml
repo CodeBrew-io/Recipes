@@ -1,0 +1,20 @@
+- name: Restart webapp
+  hosts: webapp
+  user: $user
+  vars:
+    user: gui
+  tasks:
+    - name: restart webapp
+      service: name=codebrew state=restarted
+      sudo: yes
+
+- name: Restart scala eval
+  hosts: scala_eval
+  user: $user
+  vars:
+    user: gui
+  tasks:
+    - shell: killall java
+      sudo: yes
+    - shell: /etc/init.d/scalaEval start
+      sudo: yes
