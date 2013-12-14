@@ -1,11 +1,17 @@
-# Make shure visudo has the following line uncommented
+# Make shure sudo visudo has the following line uncommented
 #%wheel  ALL=(ALL)       ALL
-- name: Create users
-  user: name={{ user.name }} password={{ user.pass }} groups=wheel shell=/usr/bin/zsh
+- name: Install python
+  yum: name=libselinux-python state=present
   sudo: yes
+
+- name: Create users
+  user: name={{ user.name }} groups=wheel shell=/bin/zsh
+  sudo: yes
+
+- include: "ssh.yml"
 
 - name: Setup git config
   template: src=.gitconfig.j2 dest=/home/{{ user.name }}/.gitconfig owner={{ user.name }} group={{ user.name }} mode=0664
+  sudo: yes
 
 - include: "oh-my-zsh.yml"
-- include: "ssh.yml"

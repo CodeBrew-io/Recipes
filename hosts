@@ -1,12 +1,11 @@
 [local]
 localhost
 
-[devs]
-l4817-[01:02].lerb.polymtl.ca
-l4817-[04:05].lerb.polymtl.ca
-
 [webapp]
-codebrew.io
+173.255.114.208
 
 [scala_eval]
-l4817-[01:05].lerb.polymtl.ca
+173.255.114.208
+
+[test]
+132.207.170.180

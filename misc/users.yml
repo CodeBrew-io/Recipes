@@ -1,20 +1,11 @@
 ---
 - name: Epic team user setup
-  hosts: devs
-  user: user.name
+  hosts: webapp
+  user: _
   roles:
     - users
-  vars_prompt:
-    - name: "pass"
-      prompt: "Password"
-      private: yes
-      encrypt: "sha512_crypt"
-      confirm: yes
-      salt_size: 7
-      salt: "your salt"
   vars:
     user:
-      name: gui
-      fullname: "Bob builder"
-      email: "bob@exemple.com"
-      pass: $pass
+      name: bob
+      fullname: "bob the builder"
+      email: "bob@example.com"

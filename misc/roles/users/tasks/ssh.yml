@@ -9,17 +9,21 @@
   shell: >
     chown {{ user.name }}:{{ user.name }}
     /home/{{ user.name }}/.ssh
+  sudo: yes
 
 - name: Add your public key to authorized keys so you can login with a private key
   copy: src={{ user.name }}/authorized_keys dest=/home/{{ user.name }}/.ssh
+  sudo: yes
 
 - name: Set owner for authorized_keys
   shell: >
     chown {{ user.name }}:{{ user.name }}
     /home/{{ user.name }}/.ssh/authorized_keys
+  sudo: yes
 
 - name: Add known hosts
   copy: src=known_hosts dest=/home/{{ user.name }}/.ssh
+  sudo: yes
 
 - name: Set owner for know_hosts
   shell: >

@@ -1,13 +1,15 @@
 - name: Install zshrc and git
-  yum: name=$item
+  yum: name={{ item }}
   with_items:
     - zsh
     - git-core
+  sudo: yes
 
 - name: Install oh-my-zsh
   git: 
     repo: https://github.com/robbyrussell/oh-my-zsh.git
     dest: /home/{{ user.name }}/.oh-my-zsh
+  sudo: yes
 
 - name: Set owner
   shell: >
@@ -17,6 +19,7 @@
 
 - name: Set template
   copy: src=zshrc dest=/home/{{ user.name }}/.zshrc
+  sudo: yes
 
 - name: Set owner
   shell: >
