@@ -1,4 +1,4 @@
-es_version: 0.90.5
+es_version: 0.90.7
 es_filename: elasticsearch-{{es_version}}.noarch.rpm
 es_download_url: https://download.elasticsearch.org/elasticsearch/elasticsearch/{{ es_filename }}
 

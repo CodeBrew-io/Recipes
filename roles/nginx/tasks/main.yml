@@ -5,14 +5,19 @@
 
 - name: Install nginx
   yum: name=nginx state=present
+  sudo: yes
 
 - name: create certificate folder
   file: path="{{ certificate_dest }}/" state=directory recurse=yes
+  sudo: yes
 
-# todo get certificate from git instead of /home/user/.ssh
-# - name: clone secrets
-#   local_action: git repo={{ secret_url }} dest={{ secret_folder }}
-#   sudo: False
+- name: create local deployment folder 
+  local_action: file path={{ local_deployment_folder }} state=directory
+  sudo: False
+
+- name: clone ssl secret locally
+  local_action: git repo={{ certificate_git_url }} dest={{ local_certificate_folder }}
+  sudo: False
 
 - name: create certificate folder
   file: path="{{ certificate_dest }}/" state=directory recurse=yes
@@ -20,34 +25,39 @@
 # Dont forget to concatenate GandiStandardSSLCA.pem at the end of the certificate
 - name: Upload ssl certificate
   copy: 
-    src: /home/{{ user }}/.ssh/{{ certificate }}
+    src: "{{ local_certificate_folder }}/{{ certificate }}"
     dest: "{{ certificate_dest }}/"
   sudo: yes
 
 - name: Set owner for certificate
   shell: chown root:root {{ certificate_dest }}/{{ certificate }}
+  sudo: yes
 
 - name: create certificate key folder
   file: path="{{ certificate_key_dest }}/" state=directory recurse=yes
+  sudo: yes
 
 - name: Upload ssl certificate key
   copy: 
-    src: /home/{{ user }}/.ssh/{{ certificate_key }}
+    src: "{{ local_certificate_folder }}/{{ certificate_key }}"
     dest: "{{ certificate_key_dest }}/"
   sudo: yes
 
 - name: Set owner for certificate key
   shell: chown root:root {{ certificate_key_dest }}/{{ certificate_key }}
+  sudo: yes
 
 - name: create error pages folder
   file: path="{{ nginx_error_pages }}/" state=directory
+  sudo: yes
 
 - name: copy error pages
   copy: 
     src: 502.html
-    dest: {{ nginx_error_pages }}
+    dest: "{{ nginx_error_pages }}"
   sudo: yes
 
 - name: Copy nginx configuration
   template: src=codebrew.nginx dest=/etc/nginx/conf.d/codebrew.conf
   notify: restart nginx
+  sudo: yes

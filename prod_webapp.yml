@@ -5,7 +5,8 @@
 
 - name: prepate deployment
   hosts: local
-  user: {{ user }}
+  connection: local
+  user: "{{ user }}"
   roles:
   - prepare_service_from_sbt
   vars_files:
@@ -13,11 +14,11 @@
     - vars/service.yml
     - vars/codebrew.yml
   vars:
-    secret_url: git@bitbucket.org:log4900/secret.git
+    secret_url: git@bitbucket.org:codebrew/secret_oauth.git
 
 - name: Prod install
   hosts: webapp
-  user: {{ user }}
+  user: "{{ user }}"
   roles:
     - firewall
     - jvm

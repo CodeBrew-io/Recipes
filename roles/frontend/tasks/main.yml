@@ -3,16 +3,16 @@
   sudo: False
 
 - name: clone project locally
-  local_action: git repo={{ project_git_url }} dest={{ project_folder }} version={{ version }}
+  local_action: git repo={{ project_git_url }} dest={{ local_project_folder }} version={{ version }}
   sudo: False
 
 - name: install dependencies
   local_action: shell cd {{ local_project_folder }} && npm install && bower install
   sudo: False
 
-- name: locally test project
-  local_action: shell cd {{ local_project_folder }} && grunt test
-  sudo: False
+# - name: locally test project
+#   local_action: shell cd {{ local_project_folder }} && grunt test
+#   sudo: False
 
 - name: locally package project
   local_action: shell cd {{ local_project_folder }} && grunt build
@@ -20,7 +20,7 @@
 
 - name: always zip when version is HEAD
   local_action: file path="{{ local_project_folder }}/{{ project_package }}" state=absent
-  when_string: {{ version }} == 'HEAD'
+  when: "version == 'HEAD'"
 
 - name: zip project
   local_action: >
@@ -33,20 +33,22 @@
 
 - name: always upload fresh package when version is HEAD
   file: path="{{ remote_deployment_folder }}/{{ project_package }}" state=absent
-  when_string: {{ version }} == 'HEAD'
+  when: "version == 'HEAD'"
 
 - name: upload subproject to server
   copy: src="{{ local_project_folder }}/{{ project_package }}" dest={{ remote_deployment_folder }}
 
 - name: always unzip fresh package when version is HEAD
   file: path={{ project_dest }} state=absent
-  when_string: {{ version }} == 'HEAD'
+  when: "version == 'HEAD'"
 
 - name: create dest directory
   file: path={{ project_dest }} state=directory recurse=yes
+  sudo: yes
 
 - name: unzip archive
   shell: >
     cd {{ remote_deployment_folder }} &&
     tar -xjf "{{ remote_deployment_folder }}/{{ project_package }}" -C {{ project_dest }}
     creates="{{ project_dest }}/dist"
+  sudo: yes

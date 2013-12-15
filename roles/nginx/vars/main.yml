@@ -1,3 +1,6 @@
+certificate_git_url: git@bitbucket.org:codebrew/secret_ssl.git
+local_certificate_folder: "{{ local_deployment_folder }}/ssl"
+
 backend_port: 9000
 server_name: codebrew.io
 

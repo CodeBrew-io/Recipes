@@ -1,35 +1,35 @@
-# - name: create deployment folder
-#   file: path={{ remote_deployment_folder }} state=directory owner={{ user }} group={{ user }}
+- name: create deployment folder
+  file: path={{ remote_deployment_folder }} state=directory owner={{ user }} group={{ user }}
 
-# - name: always upload fresh package when version is HEAD
-#   file: path="{{ remote_deployment_folder }}/{{ subproject_package_archive }}" state=absent
-#   when_string: {{ version }} == 'HEAD'
+- name: always upload fresh package when version is HEAD
+  file: path="{{ remote_deployment_folder }}/{{ subproject_package_archive }}" state=absent
+  when: "version == 'HEAD'"
 
-# - name: upload subproject to server
-#   copy: src={{ service_project_folder }}/{{ subproject_package_path }} dest={{ remote_deployment_folder }}
+- name: upload subproject to server
+  copy: src={{ service_project_folder }}/{{ subproject_package_path }} dest={{ remote_deployment_folder }}
 
-# - name: always unzip fresh package when version is HEAD
-#   file: path={{ service_dest }} state=absent
-#   when_string: {{ version }} == 'HEAD'
+- name: always unzip fresh package when version is HEAD
+  file: path={{ service_dest }} state=absent
+  when: "version == 'HEAD'"
 
-# - name: unzip archive
-#   shell: > 
-#     cd {{ remote_deployment_folder }} && 
-#     unzip {{ subproject_package_archive }} -d {{ service_dest_root }}
-#     creates={{ service_dest }}
-#   sudo: yes
+- name: unzip archive
+  shell: > 
+    cd {{ remote_deployment_folder }} && 
+    unzip {{ subproject_package_archive }} -d {{ service_dest_root }}
+    creates={{ service_dest }}
+  sudo: yes
 
-# - name: create service users
-#   user: name={{ service_user }} createhome=no shell=/sbin/nologin
-#   sudo: yes
+- name: create service users
+  user: name={{ service_user }} createhome=no shell=/sbin/nologin
+  sudo: yes
 
-# - name: setup service user
-#   shell: chown -R {{ service_user }}:{{ service_user }} {{ service_dest }}
-#   sudo: yes
+- name: setup service user
+  shell: chown -R {{ service_user }}:{{ service_user }} {{ service_dest }}
+  sudo: yes
 
-# - name: stop current service
-#   service: name={{ service_name }} state=stopped
-#   sudo: yes
+- name: stop current service
+  service: name={{ service_name }} state=stopped
+  sudo: yes
 
 - name: install service
   template: src=service.sh dest=/etc/init.d/{{ service_name }} owner=root group=root mode=0755

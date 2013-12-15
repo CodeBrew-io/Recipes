@@ -1,17 +1,9 @@
+- name: add google firewall
+  local_action: command gcutil addfirewall codebrew-web --allowed=":https,:http" --project="skillful-skill-363"
+  ignore_errors: True
+
 - name: install iptables
   yum: name=iptables
-  sudo: yes
-
-- command: systemctl mask firewalld.service
-  ignore_errors: True
-  sudo: yes
-
-- command: systemctl enable iptables.service
-  ignore_errors: True
-  sudo: yes
-
-- command: systemctl enable ip6tables.service
-  ignore_errors: True
   sudo: yes
 
 - name: Copy iptables
@@ -24,10 +16,8 @@
 
 - name: restart iptables
   service: name=iptables state=restarted
+  sudo: yes
 
 - name: restart ip6tables
   service: name=ip6tables state=restarted
-
-- command: systemctl stop firewalld.service
-  ignore_errors: True
   sudo: yes
