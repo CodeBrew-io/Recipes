@@ -1,52 +1,52 @@
 - name: create local deployment folder 
-  local_action: file path=$deployment_folder state=directory
+  local_action: file path={{ local_deployment_folder }} state=directory
   sudo: False
 
 - name: clone project locally
-  local_action: git repo=$project_git_url dest=$project_folder version=$version
+  local_action: git repo={{ project_git_url }} dest={{ project_folder }} version={{ version }}
   sudo: False
 
 - name: install dependencies
-  local_action: shell cd {{ project_folder }} && npm install && bower install
+  local_action: shell cd {{ local_project_folder }} && npm install && bower install
   sudo: False
 
 - name: locally test project
-  local_action: shell cd {{ project_folder }} && grunt test
+  local_action: shell cd {{ local_project_folder }} && grunt test
   sudo: False
 
 - name: locally package project
-  local_action: shell cd {{ project_folder }} && grunt build
+  local_action: shell cd {{ local_project_folder }} && grunt build
   sudo: False
 
 - name: always zip when version is HEAD
-  local_action: file path="{{ project_folder }}/{{ project_package }}" state=absent
-  when_string: $version == 'HEAD'
+  local_action: file path="{{ local_project_folder }}/{{ project_package }}" state=absent
+  when_string: {{ version }} == 'HEAD'
 
 - name: zip project
   local_action: >
-    shell cd {{ project_folder }} && 
-    tar -jcf $project_package dist/* creates="{{ project_folder }}/{{ project_package }}"
+    shell cd {{ local_project_folder }} && 
+    tar -jcf {{ project_package }} dist/* creates="{{ local_project_folder }}/{{ project_package }}"
   sudo: False
 
 - name: create deployment folder
-  file: path=$deployment_folder state=directory owner=$user group=$user
+  file: path={{ remote_deployment_folder }} state=directory owner={{ user }} group={{ user }}
 
 - name: always upload fresh package when version is HEAD
-  file: path="{{ deployment_folder }}/{{ project_package }}" state=absent
-  when_string: $version == 'HEAD'
+  file: path="{{ remote_deployment_folder }}/{{ project_package }}" state=absent
+  when_string: {{ version }} == 'HEAD'
 
 - name: upload subproject to server
-  copy: src="{{ project_folder }}/{{ project_package }}" dest=$deployment_folder
+  copy: src="{{ local_project_folder }}/{{ project_package }}" dest={{ remote_deployment_folder }}
 
 - name: always unzip fresh package when version is HEAD
-  file: path=$project_dest state=absent
-  when_string: $version == 'HEAD'
+  file: path={{ project_dest }} state=absent
+  when_string: {{ version }} == 'HEAD'
 
 - name: create dest directory
-  file: path=$project_dest state=directory recurse=yes
+  file: path={{ project_dest }} state=directory recurse=yes
 
 - name: unzip archive
   shell: >
-    cd $deployment_folder &&
-    tar -xjf "{{ deployment_folder }}/{{ project_package }}" -C $project_dest
+    cd {{ remote_deployment_folder }} &&
+    tar -xjf "{{ remote_deployment_folder }}/{{ project_package }}" -C {{ project_dest }}
     creates="{{ project_dest }}/dist"

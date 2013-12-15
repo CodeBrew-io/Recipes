@@ -31,5 +31,3 @@
 - command: systemctl stop firewalld.service
   ignore_errors: True
   sudo: yes
-
-- debug: msg=$hostvars

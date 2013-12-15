@@ -3,34 +3,32 @@
   hosts: webapp
   gather_facts: True
 
-- name: prepate deployment
-  hosts: local
-  connection: local
-  gather_facts: false
-  user: $user
-  roles:
-  - prepare_service_from_sbt
-  vars_files:
-    - vars/eval.yml
-    - vars/service.yml
-    - vars/codebrew.yml
-  vars:
-    secret_url: ""
+# - name: prepate deployment
+#   hosts: local
+#   connection: local
+#   gather_facts: false
+#   user: "{{ user }}"
+#   roles:
+#   - prepare_service_from_sbt
+#   vars_files:
+#     - vars/eval.yml
+#     - vars/service.yml
+#     - vars/codebrew.yml
+#   vars:
+#     secret_url: ""
 
 - name: prepare install
   hosts: scala_eval
-  user: $user
+  user: "{{ user }}"
   roles:
-    - firewall
-    - jvm
+    # - jvm
     - service_from_sbt  
   vars:
-    service_port: 8001
+    service_ports: [8001, 8002, 8003]
     service_java_ops:
       - -Dio.codebrew.lookupHostname={{ groups['webapp'][0] }}
       - -Dio.codebrew.lookupPort={{ lookup_port }}
       - -Dio.codebrew.scalaEvalHostname={{ ansible_default_ipv4.address }}
-      - -Dio.codebrew.scalaEvalPort={{ service_port }}
     service_users: webapp
     service_name: scalaEval
     service_user: scalaEval

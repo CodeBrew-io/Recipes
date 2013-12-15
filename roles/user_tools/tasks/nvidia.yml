@@ -1,9 +1,9 @@
 - name: Install rpm fusion free
-  command: rpm -ivh $fusion_free_url
+  command: rpm -ivh {{ fusion_free_url }}
   sudo: yes
 
 - name: Install rpm fusion nonfree
-  command: rpm -ivh $fusion_nonfree_url
+  command: rpm -ivh {{ fusion_nonfree_url }}
   sudo: yes
 
 - name: Install nvidia prop. drivers

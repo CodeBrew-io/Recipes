@@ -1,6 +1,6 @@
 - name: Restart webapp
   hosts: webapp
-  user: $user
+  user: {{ user }}
   vars:
     user: gui
   tasks:
@@ -10,7 +10,7 @@
 
 - name: Restart scala eval
   hosts: scala_eval
-  user: $user
+  user: {{ user }}
   vars:
     user: gui
   tasks:

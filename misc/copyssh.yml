@@ -1,7 +1,7 @@
 ---
 - name: Copy public and private key
   hosts: devs
-  user: $user
+  user: {{ user }}
   vars:
     user: YOUR_USER
   tasks:

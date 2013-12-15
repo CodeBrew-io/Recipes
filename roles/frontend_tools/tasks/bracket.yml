@@ -5,7 +5,7 @@
 
 - name: download brackets
   command: >
-    wget $brackets_url
+    wget {{ brackets_url }}
     -O /tmp/brackets/brackets{{ brackets_build }}.deb
     creates=/tmp/brackets/brackets{{ brackets_build }}.deb
 

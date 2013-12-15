@@ -5,7 +5,7 @@
   sudo: yes
 
 - name: Install utils
-  yum: name=$item
+  yum: name={{ item }}
   with_items:
     - google-chrome-stable
     - git-core

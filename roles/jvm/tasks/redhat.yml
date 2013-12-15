@@ -10,15 +10,15 @@
     wget 
       --no-cookies
       --no-check-certificate
-      --header "$oracle_header"
-      -O /home/Downloads/$oracle_java_filename
-      $oracle_java_url 
-    creates=/home/Downloads/$oracle_java_filename
+      --header "{{ oracle_header }}"
+      -O /home/Downloads/{{ oracle_java_filename }}
+      {{ oracle_java_url }}
+    creates=/home/Downloads/{{ oracle_java_filename }}
   sudo: yes
 
 - name: Install java
   command: >
-    rpm -i /home/Downloads/$oracle_java_filename
+    rpm -i /home/Downloads/{{ oracle_java_filename }}
     creates=/usr/java
   sudo: yes
 

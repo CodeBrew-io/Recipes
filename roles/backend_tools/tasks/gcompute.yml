@@ -1,6 +1,6 @@
 - name: download google gcutils
   get_url: 
-    url: $google_cutils_url
+    url: {{ google_cutils_url }}
     dest: /home/Downloads/{{ google_cutils_archive }}
 
 - name: untar google gcutils

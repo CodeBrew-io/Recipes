@@ -1,5 +1,5 @@
 - name: install thrift dependencies
-  yum: name=$item
+  yum: name={{ item }}
   with_items:
     - openssl-devel.x86_64
     - automake
@@ -9,7 +9,7 @@
 
 - name: download thrift
   get_url: 
-    url: $thrift_url
+    url: {{ thrift_url }}
     dest: /home/Downloads/{{ thrift_archive }}
 
 - name: untar thrift

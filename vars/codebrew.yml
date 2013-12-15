@@ -1,8 +1,9 @@
-user: gui
+user: guillaumemasse
 version_: 1.0.0
 version: v{{ version_ }}
 
-deployment_folder: /home/{{ user }}/Deployments
+local_deployment_folder: /Users/{{ user }}/Deployments
+remote_deployment_folder: /home/{{ user }}/Deployments
 
 subproject_package_directory: "{{ service_subproject_name }}-{{ version_ }}"
 subproject_package_archive: "{{ subproject_package_directory }}.zip"

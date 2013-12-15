@@ -5,7 +5,7 @@
 
 - name: prepate deployment
   hosts: local
-  user: $user
+  user: {{ user }}
   roles:
   - prepare_service_from_sbt
   vars_files:
@@ -17,7 +17,7 @@
 
 - name: Prod install
   hosts: webapp
-  user: $user
+  user: {{ user }}
   roles:
     - firewall
     - jvm
@@ -27,6 +27,7 @@
     - nginx
   vars:
     service_port: "{{ lookup_port }}"
+    service_ports: [service_port]
     service_java_ops:
       - -Dio.codebrew.lookupPort={{ lookup_port }}
       - -DapplyEvolutions.default=true

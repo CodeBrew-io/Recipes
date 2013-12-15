@@ -8,11 +8,6 @@
 -A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT
 -A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
 -A INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
-{% for host in groups[service_users] %}
-{% for port in service_ports %}
--A INPUT -m state --state NEW -m tcp -p tcp --dport {{ port }} -s {{ hostvars[host].ansible_all_ipv6_addresses[0] }} -j ACCEPT 
-{% endfor %}
-{% endfor %}
 -A INPUT -j REJECT --reject-with icmp6-adm-prohibited
 -A FORWARD -j REJECT --reject-with icmp6-adm-prohibited
 COMMIT

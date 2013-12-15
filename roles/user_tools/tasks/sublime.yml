@@ -6,7 +6,7 @@
 
 - name: download Sublime Text 3
   get_url: 
-    url: $sublime_url
+    url: {{ sublime_url }}
     dest: /home/Downloads/sublime3.tar.bz2
 
 - name: untar Sublime Text 3
@@ -51,6 +51,6 @@
 
 - name: install Package control
   get_url:
-    url: $sublime_package_control_url
+    url: {{ sublime_package_control_url }}
     dest: /home/{{ item }}/.config/sublime-text-3/Installed Packages/Package Control.sublime-package
   with_items: users

@@ -11,8 +11,6 @@
 
 export JAVA_HOME=/usr/java/jdk1.7.0_10
 
-RUN_CMD={{ service_cmd }}
-
 . /etc/init.d/functions
 RETVAL=0
  

@@ -6,7 +6,7 @@
 
 - name: Download ElasticSearch
   get_url: 
-    url: $es_download_url
+    url: {{ es_download_url }}
     dest: /home/Downloads/{{ es_filename }}
   sudo: yes
 

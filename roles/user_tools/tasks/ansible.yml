@@ -3,7 +3,7 @@
   sudo: yes
 
 - name: Install pythons to build ansible
-  yum: name=$item
+  yum: name={{ item }}
   with_items:
     - python-devel
   sudo: yes

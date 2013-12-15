@@ -1,6 +1,8 @@
 project_name: "Frontend"
 project_git_url: "https://github.com/CodeBrew-io/{{ project_name }}.git"
-project_folder: "{{ deployment_folder }}/{{ project_name }}"
+local_project_folder: "{{ local_deployment_folder }}/{{ project_name }}"
+remote_project_folder: "{{ remote_deployment_folder }}/{{ project_name }}"
+
 project_package: "{{ project_name }}-{{ version_ }}.tar.bz2"
 project_dest_root: /opt
 project_dest: "{{ project_dest_root }}/{{ project_name }}-{{ version_ }}"
