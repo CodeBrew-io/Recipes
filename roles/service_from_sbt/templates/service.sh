@@ -15,9 +15,13 @@ export JAVA_HOME=/usr/java/jdk1.7.0_10
 RETVAL=0
  
 start() {
+{% if service_name == 'codebrew' %}
+	daemon --user={{ service_user }} "{{ service_dest }}/bin/{{ service_subproject_name | lower }} -J\"{{ service_java_ops | join(' ') }}\" &"
+{% else %}
 {% for port in service_ports %}
 	daemon --user={{ service_user }} "{{ service_dest }}/bin/{{ service_subproject_name | lower }} {{ port }} -J\"{{ service_java_ops | join(' ') }}\" &"
 {% endfor %}
+{% endif %}
 
 	RETVAL=$?
  

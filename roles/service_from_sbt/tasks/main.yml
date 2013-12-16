@@ -1,12 +1,27 @@
 - name: create deployment folder
-  file: path={{ remote_deployment_folder }} state=directory owner={{ user }} group={{ user }}
+  file: path={{ deployment_folder }} state=directory owner={{ user }} group={{ user }}
 
-- name: always upload fresh package when version is HEAD
-  file: path="{{ remote_deployment_folder }}/{{ subproject_package_archive }}" state=absent
-  when: "version == 'HEAD'"
+- name: clone project
+  git: repo="{{ service_project_git_url }}" dest="{{ service_project_folder }}" version="{{ version }}"
 
-- name: upload subproject to server
-  copy: src={{ service_project_folder }}/{{ subproject_package_path }} dest={{ remote_deployment_folder }}
+- name: copy deployment key
+  copy: src="{{private_key_path}}" dest="/home/{{ user }}/.ssh/id_rsa"
+
+- name: clone secrets
+  git: repo="{{ secret_url }}" dest="{{ secret_folder }}"
+  when: "secret_url != ''"
+
+- name: copy secrets
+  shell: cp -fr {{ secret_folder }}/* {{ service_project_folder }}/{{ service_subproject_name }}/conf/
+  when: "secret_url != ''"
+
+- name: test project
+  shell: cd {{ service_project_folder }} && sbt {{ service_subproject_name }}/test
+  sudo: False
+
+- name: package project
+  shell: cd {{ service_project_folder }} && sbt {{ service_subproject_name }}/dist
+  sudo: False
 
 - name: always unzip fresh package when version is HEAD
   file: path={{ service_dest }} state=absent
@@ -14,7 +29,7 @@
 
 - name: unzip archive
   shell: > 
-    cd {{ remote_deployment_folder }} && 
+    cd {{ deployment_folder }} && 
     unzip {{ subproject_package_archive }} -d {{ service_dest_root }}
     creates={{ service_dest }}
   sudo: yes

@@ -1,4 +1,0 @@
-service_project_git_url: https://github.com/CodeBrew-io/Sauce.git
-secret_folder: "{{ local_deployment_folder }}/secret"
-
-service_project_name: Sauce

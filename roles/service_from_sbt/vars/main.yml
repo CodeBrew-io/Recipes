@@ -1,4 +1,8 @@
-service_project_name: Sauce
-
 service_dest_root: /opt
 service_dest: "{{ service_dest_root }}/{{ subproject_package_directory }}"
+service_project_git_url: https://github.com/CodeBrew-io/Sauce.git
+service_project_name: Sauce
+
+secret_folder: "{{ deployment_folder }}/secret"
+
+private_key_path: /Users/{{ user }}/.ssh/codebrew/deployment_key

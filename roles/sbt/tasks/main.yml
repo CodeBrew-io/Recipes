@@ -2,11 +2,13 @@
   file: 
     path: /home/Downloads
     state: directory
+  sudo: yes
 
 - name: download sbt package
   get_url: 
-    url: {{ sbt_url }}
+    url: "{{ sbt_url }}"
     dest: /home/Downloads/sbt-{{ sbt_version }}.rpm
+  sudo: yes
 
 - name: install sbt
   command: >
@@ -19,27 +21,33 @@
     src=sbt-debug
     dest=/usr/bin/sbt-debug
     mode=0755
+  sudo: yes
 
 - name: Create sbt directory structure 1
   file: path=/home/{{ item }}/.sbt/ state=directory
-  with_items: {{ users }}
+  with_items: users
+  sudo: yes
 
 - name: Create sbt directory structure 1
   file: path=/home/{{ item }}/.sbt/0.13 state=directory
-  with_items: {{ users }}
+  with_items: users
+  sudo: yes
 
 - name: Create sbt directory structure 3
   file: path=/home/{{ item }}/.sbt/0.13/plugins state=directory
-  with_items: {{ users }}
+  with_items: users
+  sudo: yes
 
 - name: Add sbt default plugins
   copy: >
     src=build.sbt
     dest=/home/{{ item }}/.sbt/0.13/plugins/build.sbt
-  with_items: {{ users }}
+  with_items: users
+  sudo: yes
 
 - name: Set owner for sbt config
   shell: >
     chown -R {{ item }}:{{ item }}
     /home/{{ item }}/.sbt
-  with_items: {{ users }}
+  with_items: users
+  sudo: yes

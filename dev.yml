@@ -4,6 +4,7 @@
   user: gui
   roles:
     - jvm
+    - sbt
     - user_tools
     - backend_tools
     - frontend_tools

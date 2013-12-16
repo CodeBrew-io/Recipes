@@ -3,19 +3,6 @@
   hosts: scala_eval
   gather_facts: True
 
-- name: prepate deployment
-  hosts: local
-  connection: local
-  user: "{{ user }}"
-  roles:
-  - prepare_service_from_sbt
-  vars_files:
-    - vars/web.yml
-    - vars/service.yml
-    - vars/codebrew.yml
-  vars:
-    secret_url: git@bitbucket.org:codebrew/secret_oauth.git
-
 - name: Prod install
   hosts: webapp
   user: "{{ user }}"
@@ -23,18 +10,22 @@
     - firewall
     - jvm
     - elasticsearch
+    - sbt
     - service_from_sbt
     - frontend
     - nginx
   vars:
+    users:
+      - "{{ user }}"
     service_port: "{{ lookup_port }}"
-    service_ports: [service_port]
+    service_ports: [ "{{ lookup_port }}" ]
     service_java_ops:
       - -Dio.codebrew.lookupPort={{ lookup_port }}
       - -DapplyEvolutions.default=true
     service_users: scala_eval
     service_name: codebrew
     service_user: web
+    secret_url: git@bitbucket.org:codebrew/secret_oauth.git
   vars_files:
     - vars/lookup.yml
     - vars/elasticsearch.yml

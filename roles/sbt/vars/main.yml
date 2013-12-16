@@ -1,0 +1,2 @@
+sbt_version: 0.13.0
+sbt_url: http://repo.scala-sbt.org/scalasbt/sbt-native-packages/org/scala-sbt/sbt/{{ sbt_version }}/sbt.rpm
