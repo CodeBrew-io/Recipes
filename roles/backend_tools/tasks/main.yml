@@ -1,4 +1,2 @@
-- include: intellij.yml
+# - include: intellij.yml
 - include: haskell.yml
-- include: thrift.yml
-- include: gcompute.yml

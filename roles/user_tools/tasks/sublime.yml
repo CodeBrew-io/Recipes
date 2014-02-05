@@ -6,8 +6,9 @@
 
 - name: download Sublime Text 3
   get_url: 
-    url: {{ sublime_url }}
+    url: "{{ sublime_url }}"
     dest: /home/Downloads/sublime3.tar.bz2
+  sudo: yes
 
 - name: untar Sublime Text 3
   shell: >
@@ -20,6 +21,7 @@
   copy:
     src: sublime_text.desktop
     dest: /usr/share/applications
+  sudo: yes
 
 # - name: remove config
 #   file: path=/home/{{ item[0] }}/.config/sublime-text-3 state=absent
@@ -28,7 +30,7 @@
   copy: >
     src="sublime_text/{{ item[1] }}" 
     dest="/home/{{ item[0] }}/.config/sublime-text-3/Packages/User"
-    owner={{ item[0] }}
+    owner="{{ item[0] }}"
   with_nested: 
     - users
     - [ 'Default (Linux).sublime-keymap', 'Preferences.sublime-settings', 'nginx.sublime-settings']
@@ -38,19 +40,19 @@
   template:
     src=sublime_text/SublimeHaskell.sublime-settings
     dest="/home/{{ item }}/.config/sublime-text-3/Packages/User"
-    owner={{ item }}
+    owner="{{ item }}"
   with_items: users
 
 - name: copy Sublime Text preferences
   copy: >
     src="sublime_text/PackageControl.sublime-settings"
     dest="/home/{{ item }}/.config/sublime-text-3/Packages/User/Package Control.sublime-settings"
-    owner={{ item }}
+    owner="{{ item }}"
   with_items: users
   sudo: yes
 
 - name: install Package control
   get_url:
-    url: {{ sublime_package_control_url }}
+    url: "{{ sublime_package_control_url }}"
     dest: /home/{{ item }}/.config/sublime-text-3/Installed Packages/Package Control.sublime-package
   with_items: users

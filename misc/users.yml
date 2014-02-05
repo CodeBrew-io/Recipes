@@ -1,11 +1,12 @@
 ---
 - name: Epic team user setup
-  hosts: webapp
-  user: _
+  hosts: local
+  connection: local
+  user: masgui
   roles:
     - users
   vars:
     user:
-      name: bob
-      fullname: "bob the builder"
-      email: "bob@example.com"
+      name: masgui
+      fullname: "Guillaume Masse"
+      email: "masgui@gmail.com"

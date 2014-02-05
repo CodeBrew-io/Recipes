@@ -1,20 +1,12 @@
 ---
 - name: Epic team install
-  hosts: devs
+  hosts: local
+  connection: local
   user: gui
   roles:
-    - jvm
-    - sbt
     - user_tools
     - backend_tools
     - frontend_tools
-    - elasticsearch
-  vars_files:
-    - vars/elasticsearch.yml
   vars:
     users:
-      - gui
-      - jedesah
-      - ercomb
-      - pat
-      - shmed
+      - masgui

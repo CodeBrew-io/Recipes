@@ -2,45 +2,51 @@
   file: 
     path: /home/Downloads
     state: directory
+  sudo: yes
 
 - name: create intellij plugins folder
   file: 
     path: /home/Downloads/intellij_plugins
     state: directory
+  sudo: yes
 
-- name: download intellij comunity
-  get_url: 
-    url: {{ intellij_url }}
-    dest: /home/Downloads/intelij.tar.gz
+# - name: download intellij comunity
+#  get_url: 
+#    url: "{{ intellij_url }}"
+#    dest: /home/Downloads/intelij.tar.gz
+#  sudo: yes
 
 - name: untar intellij
   shell: >
     tar -C /opt
-    -xzf /home/Downloads/intelij.tar.gz
-    creates=/opt/idea-IC-129.713
+    -xzf /home/Downloads/ideaIC-13.0.2.tar.gz
+    creates=/opt/idea-IC-133.696
   sudo: yes
 
 - name: install shortcut
   copy:
     src: intelij.desktop
     dest: /usr/share/applications
+  sudo: yes
 
 - name: download sbt plugin
   command: >
     wget {{ intellij_sbt_url }}
     -O /home/Downloads/intellij_plugins/sbt.zip
     creates=/home/Downloads/intellij_plugins/sbt.zip
+  sudo: yes
 
 - name: unzip sbt plugin
   command: >
     unzip /home/Downloads/intellij_plugins/sbt.zip
     -d /home/Downloads/intellij_plugins
     creates=/home/Downloads/intellij_plugins/SBT
+  sudo: yes
 
 - name: install SBT plugin
   command: >
-    cp -R /home/Downloads/intellij_plugins/SBT /opt/idea-IC-129.713/plugins
-    creates=/opt/idea-IC-129.713/plugins/SBT
+    cp -R /home/Downloads/intellij_plugins/SBT /opt/idea-IC-133.696/plugins
+    creates=/opt/idea-IC-133.696/plugins/SBT
   sudo: yes
 
 - name: download scala plugin
@@ -48,16 +54,18 @@
     wget {{ intellij_scala_url }}
     -O /home/Downloads/intellij_plugins/scala.zip
     creates=/home/Downloads/intellij_plugins/scala.zip
+  sudo: yes
 
 - name: unzip scala plugin
   command: >
     unzip /home/Downloads/intellij_plugins/scala.zip
     -d /home/Downloads/intellij_plugins
     creates=/home/Downloads/intellij_plugins/Scala
+  sudo: yes
 
 - name: install scala plugin
   command: >
-    cp -R /home/Downloads/intellij_plugins/Scala /opt/idea-IC-129.713/plugins
-    creates=/opt/idea-IC-129.713/plugins/Scala
+    cp -R /home/Downloads/intellij_plugins/Scala /opt/idea-IC-133.696/plugins
+    creates=/opt/idea-IC-133.696/plugins/Scala
   sudo: yes
 

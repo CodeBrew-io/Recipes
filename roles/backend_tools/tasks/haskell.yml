@@ -1,14 +1,19 @@
-- name: install haskell platform
-  yum: name={{ item }}
-  with_items:
-    - ghc
-    - ghc-prof 
-    - cabal-install
-  sudo: yes
+#- name: install haskell platform
+#  yum: name="{{ item }}"
+#  with_items:
+#    - ghc
+#    - ghc-prof 
+#    - cabal-install
+#  sudo: yes
+
+#- name: update cabal
+#  command: su -c "cabal update" {{ item }}
+#  with_items: "{{ users }}"
+#  sudo: yes
 
 - name: update cabal
-  command: su -c "cabal update" {{ item }}
-  with_items: {{ users }}
+  command: cabal update
+  sudo: yes
 
 - name: install cabal packages globaly
   shell: "env PATH=$PATH:/usr/local/bin; cabal install {{ item }} --global"

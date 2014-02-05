@@ -1,14 +1,9 @@
 # Make shure sudo visudo has the following line uncommented
 #%wheel  ALL=(ALL)       ALL
-- name: Install python
-  yum: name=libselinux-python state=present
-  sudo: yes
 
 - name: Create users
   user: name={{ user.name }} groups=wheel shell=/bin/zsh
   sudo: yes
-
-- include: "ssh.yml"
 
 - name: Setup git config
   template: src=.gitconfig.j2 dest=/home/{{ user.name }}/.gitconfig owner={{ user.name }} group={{ user.name }} mode=0664

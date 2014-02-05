@@ -6,27 +6,32 @@
   file: 
     path: /home/Downloads
     state: directory
+  sudo: yes
 
 - name: download Nodejs
   get_url: 
     url: http://nodejs.org/dist/v{{ nodejs_version }}/node-v{{ nodejs_version }}.tar.gz
     dest: /home/Downloads/node-v{{ nodejs_version }}.tar.gz
+  sudo: yes
 
 - name: untar node
   shell: >
     tar -C /home/Downloads
     -xzf /home/Downloads/node-v{{ nodejs_version }}.tar.gz
     creates=/home/Downloads/node-v{{ nodejs_version }}
+  sudo: yes
 
 - name: config node
   shell: >
     cd /home/Downloads/node-v{{ nodejs_version }} && ./configure
     creates=/usr/local/bin/node
+  sudo: yes
 
 - name: build node
   shell: >
     cd /home/Downloads/node-v{{ nodejs_version }} && make -j{{ nodejs_make_jobs }}
     creates=/usr/local/bin/node
+  sudo: yes
 
 - name: install node
   shell: >
@@ -52,19 +57,3 @@
     creates=/usr/local/bin/bower
   sudo: yes
 
-- name: install typescript
-  command: >
-    /usr/local/bin/npm install -g typescript
-    creates=/usr/local/bin/tsc
-  sudo: yes
-
-- name: Install Typescript-tools
-  git: 
-    repo: https://github.com/clausreinke/typescript-tools.git
-    dest: /home/Downloads/typescript-tools
-
-- name: install typescript-tools
-  shell: >
-    cd /home/Downloads/typescript-tools && /usr/local/bin/npm install -g
-    creates=/usr/local/bin/tss
-  sudo: yes
